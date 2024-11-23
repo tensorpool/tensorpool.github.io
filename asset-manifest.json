@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/tensorpool.github.io/static/css/main.435d5fe5.chunk.css",
+    "main.js": "/tensorpool.github.io/static/js/main.ace13ff9.chunk.js",
+    "main.js.map": "/tensorpool.github.io/static/js/main.ace13ff9.chunk.js.map",
+    "runtime-main.js": "/tensorpool.github.io/static/js/runtime-main.d23bacc4.js",
+    "runtime-main.js.map": "/tensorpool.github.io/static/js/runtime-main.d23bacc4.js.map",
+    "static/js/2.5ff95bdd.chunk.js": "/tensorpool.github.io/static/js/2.5ff95bdd.chunk.js",
+    "static/js/2.5ff95bdd.chunk.js.map": "/tensorpool.github.io/static/js/2.5ff95bdd.chunk.js.map",
+    "static/js/3.82afb7a3.chunk.js": "/tensorpool.github.io/static/js/3.82afb7a3.chunk.js",
+    "static/js/3.82afb7a3.chunk.js.map": "/tensorpool.github.io/static/js/3.82afb7a3.chunk.js.map",
+    "index.html": "/tensorpool.github.io/index.html",
+    "precache-manifest.c807132621ec8667fda5712a3fd8a213.js": "/tensorpool.github.io/precache-manifest.c807132621ec8667fda5712a3fd8a213.js",
+    "service-worker.js": "/tensorpool.github.io/service-worker.js",
+    "static/css/main.435d5fe5.chunk.css.map": "/tensorpool.github.io/static/css/main.435d5fe5.chunk.css.map",
+    "static/js/2.5ff95bdd.chunk.js.LICENSE.txt": "/tensorpool.github.io/static/js/2.5ff95bdd.chunk.js.LICENSE.txt",
+    "static/media/logo.svg": "/tensorpool.github.io/static/media/logo.06e73328.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.d23bacc4.js",
+    "static/js/2.5ff95bdd.chunk.js",
+    "static/css/main.435d5fe5.chunk.css",
+    "static/js/main.ace13ff9.chunk.js"
+  ]
+}
