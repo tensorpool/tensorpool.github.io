@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/tensorpool.github.io/precache-manifest.c807132621ec8667fda5712a3fd8a213.js"
+  "/tensorpool.github.io/precache-manifest.090ea9674cfb8f03a055a9d5226d376c.js"
 );
 
 self.addEventListener('message', (event) => {
