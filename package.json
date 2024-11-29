@@ -1,0 +1,45 @@
+{
+  "name": "rp-website",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build && next-sitemap",
+    "export": "next export",
+    "build-export": "next build && next export",
+    "build-export-deploy": "next build && next export && netlify deploy --prod",
+    "start": "next start",
+    "test": "next build && next-sitemap && next start",
+    "lint": "xo",
+    "lint-fix": "xo --fix"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.19",
+    "@chakra-ui/react": "^2.7.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@fontsource/red-hat-display": "^5.0.3",
+    "@fontsource/space-grotesk": "^5.0.3",
+    "animated-number-react": "^0.1.2",
+    "firebase": "^8.3.1",
+    "framer-motion": "^10.12.16",
+    "location-autocomplete": "^1.2.4",
+    "moment": "^2.29.4",
+    "next": "13.4.5",
+    "next-sitemap": "^4.1.3",
+    "nextjs-google-analytics": "^2.3.3",
+    "prop-types": "^15.8.1",
+    "react": "^18.2.0",
+    "react-cool-onclickoutside": "^1.7.0",
+    "react-dom": "18.2.0",
+    "react-firebase-hooks": "^3.0.4",
+    "react-game-icons": "^1.1.0",
+    "react-icons": "^4.12.0",
+    "styled-components": "^5.3.11",
+    "styled-icons": "^10.47.0",
+    "use-places-autocomplete": "^4.0.0"
+  },
+  "devDependencies": {
+    "xo": "^0.54.2"
+  }
+}
