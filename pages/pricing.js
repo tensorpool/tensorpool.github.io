@@ -44,7 +44,7 @@ const Price = () => (
                 height="260px"
             >
                 <Text fontSize="lg" mb={6}>
-                    $20 on us. Free T4s. Don't pay for idle GPUs.
+                    $20 on us. Free T4s. Don't pay for idle GPUs. Don't pay for configuration.
                 </Text>
             </Box>
 
@@ -107,7 +107,7 @@ const Price = () => (
                 <Text mb={2}>✓ Multi-GPU support</Text>
                 <Text mb={2}>✗ Base rate</Text>
                 <Text mb={4}>✗ Pay for idle GPUs</Text>
-                <Button colorScheme="blue">Get Started →</Button>
+                <Link href='/faqs'> <Button colorScheme="blue">Get Started →</Button></Link>
             </Box>
 
             <Box
