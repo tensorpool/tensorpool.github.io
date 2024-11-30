@@ -62,7 +62,7 @@ const Login = () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: window.location.href, // Redirect to the current page
+                    redirectTo: `${window.location.origin}/login`, // Dynamically sets redirectTo
                 },
             });
     
@@ -81,6 +81,7 @@ const Login = () => {
             setLoading(false);
         }
     };
+    
     
     
 
