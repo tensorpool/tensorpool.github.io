@@ -62,10 +62,10 @@ const Login = () => {
             const { error } = await supabase.auth.signInWithOAuth({
                 provider: 'google',
                 options: {
-                    redirectTo: window.location.href, // Stay on the same page after login
+                    redirectTo: window.location.href, // Redirect to the current page
                 },
             });
-
+    
             if (error) {
                 throw error;
             }
@@ -81,6 +81,8 @@ const Login = () => {
             setLoading(false);
         }
     };
+    
+    
 
     // Handle Logout
     const handleLogout = async () => {
