@@ -36,30 +36,25 @@ export default function Home() {
 
 			<Flex flexDirection={['column', 'row']} width={['90%', '75%']} mx='auto'>
 				<Box width={['100%', '70%']} my={9}>
-					<Center p={3}>
-						<Box>
-							<Heading as='h1' size='xl'>
-                Access GPUs in only two lines of code.
-							</Heading>
-							<Text as='h2' fontSize='xxl' my={[6, 3]}>
-                Join <b><AnimatedNumber
-									formatValue={v => v.toFixed(0)}
-									duration={2000}
-									delay={300}
-									value={310}
-								/>
-                +</b> other ML developers to save time and money on model training.
-							</Text>
-						</Box>
-					</Center>
-
-					<Flex alignItems='center'>
-						<Link href='/login' mx={['auto', 1]}>
-							<Button size='lg' bg='rpmblue' padding={6} mx={3}>
-                Join Waitlist
-							</Button>
-						</Link>
-					</Flex>
+					<Box p={3}>
+					<Heading as='h1' size='xl'>
+						Access GPUs in only two lines of code.
+					</Heading>
+					<Text as='h2' fontSize='xxl' my={[6, 3]}>
+						Join <b><AnimatedNumber
+						formatValue={v => v.toFixed(0)}
+						duration={2000}
+						delay={300}
+						value={310}
+						/>
+						+</b> other ML developers to save time and money on model training.
+					</Text>
+					<Link href='/login'>
+						<Button size='lg' bg='rpmblue' padding={6}>
+						Sign Up
+						</Button>
+					</Link>
+					</Box>
 				</Box>
 				<Center width={['100%', '30%']}>
 					<Image src='/images/pool.svg' />

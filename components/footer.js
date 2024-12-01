@@ -19,6 +19,13 @@ const links = [
 	{title: 'FAQs', href: '/faqs'},
 	// {title: 'Terms of Service', href: '/terms-of-service'},
 ];
+const links2 = [
+	{title: 'Pricing', href: '/pricing'},
+	{title: 'Documentation', href:'https://tensorpool.mintlify.app/quickstart'},
+	// {title: 'How it Works', href: '/#how-it-works'},
+	// {title: 'FAQs', href: '/faqs'},
+	// {title: 'Terms of Service', href: '/terms-of-service'},
+];
 
 const socials = [
 	{
@@ -56,8 +63,18 @@ const Footer = () => (
 					))}
 				</Box>
 			</Center>
-
 			<Center width={['90%', '30%']}>
+				<Box>
+					{links2.map(({title, href}) => (
+						<Box my={2} key={href}>
+							<Link href={href} fontSize='sm'>
+								{title}
+							</Link>
+						</Box>
+					))}
+				</Box>
+			</Center>
+			{/* <Center width={['90%', '30%']}>
 				<Box>
 					{socials.map(({title, icon, href}) => (
 						<Box my={2} key={href}>
@@ -72,7 +89,7 @@ const Footer = () => (
 						</Box>
 					))}
 				</Box>
-			</Center>
+			</Center> */}
 			<Spacer />
 		</Flex>
 	</Box>
