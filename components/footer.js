@@ -14,7 +14,7 @@ import {Instagram, Twitter} from '@styled-icons/bootstrap';
 
 const links = [
 	{title: 'About', href: '/#about'},
-	{title: 'Enter The Pool', href: '/login'},
+	{title: 'Sign Up', href: '/login'},
 	// {title: 'How it Works', href: '/#how-it-works'},
 	{title: 'FAQs', href: '/faqs'},
 	// {title: 'Terms of Service', href: '/terms-of-service'},

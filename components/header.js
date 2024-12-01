@@ -70,7 +70,7 @@ const Header = () => {
 							FAQs
 						</Button>
 					</Link>
-					<Link href='https://forms.gle/3W2aa9eAof2fMnfu7' isExternal>
+					<Link href='/login'>
 						<Button
 							bg='transparent'
 							borderColor='white'

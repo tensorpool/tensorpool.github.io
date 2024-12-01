@@ -98,16 +98,16 @@ const Price = () => (
             >
                 <Heading as="h3" size="lg" mb={2}>
                     PERSONAL PLAN
-                </Heading>
+                </Heading> 
                 <Heading as="h4" size="md" mb={4}>
-                    $0.40/hr + GPU usage
+                Sign up in seconds
                 </Heading>
                 <Text mb={2}>✓ $20 free credit</Text>
                 <Text mb={2}>✓ Free NVIDIA T4s</Text>
                 <Text mb={2}>✓ Multi-GPU support</Text>
                 <Text mb={2}>✗ Base rate</Text>
                 <Text mb={4}>✗ Pay for idle GPUs</Text>
-                <Link href='/faqs'> <Button colorScheme="blue">Get Started →</Button></Link>
+                <Link href='/login'> <Button colorScheme="blue" w={['75%', '50%']}>Sign Up</Button></Link>
             </Box>
 
             <Box
@@ -130,11 +130,13 @@ const Price = () => (
                     Contact us
                 </Heading>
                 <Text mb={2}>✓ Use existing cloud or on-prem deployments</Text>
-                <Text mb={2}>✓ White glove integration support</Text>
+                <Text mb={2}>✓ 24/7 support</Text>
                 <Text mb={2}>✓ Monitoring tools</Text>
-                <Text mb={2}>✓ 24/7 dedicated support</Text>
+                <Text mb={2}>✗ Time & money wasted on onboarding</Text>
                 <Text mb={4}>✗ Pay for idle GPUs</Text>
-                <Button colorScheme="blue">Contact Us</Button>
+                <Link href="mailto:tsvoboda@stanford.edu?subject=TensorPool Enterprise Inquiry">
+                    <Button colorScheme="blue" w={['75%', '50%']}>Contact Us</Button>
+                </Link>
             </Box>
         </Flex>
     </Layout>
