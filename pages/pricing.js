@@ -23,7 +23,7 @@ import Layout from '../components/layout.js';
 const Price = () => (
     <Layout>
         <Center m="4">
-            <Heading as="h2" size="lg" my={4} width={['85%', '50%']} align="center">
+            <Heading as="h2" size="xl" my={4} width={['85%', '50%']} align="center">
                 Our Pricing Model
             </Heading>
         </Center>
@@ -54,31 +54,20 @@ const Price = () => (
                 p={6}
                 borderRadius="lg"
                 boxShadow="lg"
-                width={['90%', '40%']}
+                width={['90%', '30%']}
+                textAlign="center"
                 display="flex"
                 flexDirection="column"
                 justifyContent="center"
                 height="260px"
             >
-                <Heading as="h3" size="md" mb={4}>
+                <Heading as="h2" size="lg" mb={4}>
                     Pricing
                 </Heading>
-
-                <Text fontSize="md" mb={2}>
-                    <strong>GPU Usage</strong>
+                <Text fontSize="lg" mb={2}>
+                    <strong>$0.10 / GB</strong>
                 </Text>
-                <Flex justify="space-between" mb={2}>
-                    <Text>NVIDIA T4</Text>
-                    <Text>$0.00 / GB</Text>
-                </Flex>
-                <Flex justify="space-between" mb={2}>
-                    <Text>NVIDIA V100</Text>
-                    <Text>$0.09 / GB</Text>
-                </Flex>
-                <Flex justify="space-between">
-                    <Text>NVIDIA A100, 40GB</Text>
-                    <Text>$1.20 / GB</Text>
-                </Flex>
+                <Text justifyContent="center">All GPUs cost the same with TensorPool.</Text>
             </Box>
         </Flex>
 
