@@ -26,7 +26,7 @@ const theme = extendTheme({
 	},
 });
 
-const title = 'Ridepool — half off your next rideshare';
+const title = 'TensorPool — Access GPUs in two lines of code';
 const description
   = 'Save money, time, and the environment by finding someone to split a rideshare with on Ridepool.';
 const ogImage = 'https://ridepoolapp.com/images/meta-preview.png';
@@ -36,7 +36,7 @@ const Layout = ({children}) => (
 
 		<Head>
 			{/* Primary Meta Tags */}
-			<title>Ridepool — 50% off your next rideshare</title>
+			<title>TensorPool — Access GPUs in two lines of code</title>
 			<meta name='title' content={title} />
 			<meta name='description' content={description} />
 			<meta name='viewport' content='initial-scale=1.0, width=device-width' />
