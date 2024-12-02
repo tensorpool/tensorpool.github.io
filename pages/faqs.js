@@ -94,7 +94,7 @@ const faq = () => (
 				</h2>
 				<AccordionPanel pb={4}>
 					<Text ml={2} fontSize='md'>
-            Yes, but we give away 20 GB of free usage to new users before requiring payment. Try us out! If you like us,
+            Yes, but we give away $20 of free usage to new users before requiring payment. Try us out! If you like us,
 			continue paying. If you don't, then dont! :)
 					</Text>
 				</AccordionPanel>

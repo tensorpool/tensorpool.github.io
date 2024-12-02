@@ -50,7 +50,7 @@ const Footer = () => (
 						<Flex>
 							<Image src='/images/logo-transparent.svg' height={39} />
 							<Center>
-								<Heading size='md'>TensorPool</Heading>
+								<Heading size='md' mx='2'>TensorPool</Heading>
 							</Center>
 						</Flex>
 					</Center>

@@ -22,7 +22,7 @@ const Header = () => {
 					<Flex my='3'>
 					<Image src='/images/logo-transparent.svg' height={69} />
 					<Button variant='link' color='white'>
-						<Heading as='h1'>TensorPool</Heading>
+						<Heading as='h1' mx='2'>TensorPool</Heading>
 					</Button>
 					</Flex>
 				</Link>

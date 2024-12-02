@@ -50,14 +50,14 @@ export default function Home() {
 						+</b> other ML developers to save time and money on model training.
 					</Text>
 					<Link href='/login'>
-						<Button size='lg' bg='rpmblue' padding={6}>
+						<Button size='lg' bg='rpmblue' padding={6} my='4'>
 						Sign Up
 						</Button>
 					</Link>
 					</Box>
 				</Box>
 				<Center width={['100%', '30%']}>
-					<Image src='/images/pool.svg' />
+					<Image src='/images/logo-transparent.svg' boxSize='90%'/>
 				</Center>
 			</Flex>
 
