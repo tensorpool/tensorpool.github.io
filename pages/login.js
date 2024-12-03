@@ -262,7 +262,7 @@ const Login = () => {
                                         Continue with Google
                                     </Button>
                                 </Center>
-                                <Center m={3}>
+                                {/* <Center m={3}>
                                     <Input
                                         type="email"
                                         placeholder="Enter your email"
@@ -277,7 +277,7 @@ const Login = () => {
                                     >
                                         Send Email Verification
                                     </Button>
-                                </Center>
+                                </Center> */}
                             </Box>
                         )}
                     </Center>
