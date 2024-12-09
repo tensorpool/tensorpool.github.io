@@ -65,7 +65,10 @@ const Price = () => (
                     Pricing
                 </Heading>
                 <Text fontSize="lg" mb={2}>
-                    <strong>$0.10 / GB</strong>
+                    <strong>$0.10 / GB ingress</strong>
+                </Text>
+                <Text fontSize="lg" mb={2}>
+                    <strong>$1.00 / GB egress</strong>
                 </Text>
                 <Text justifyContent="center">All GPUs cost the same with TensorPool.</Text>
             </Box>

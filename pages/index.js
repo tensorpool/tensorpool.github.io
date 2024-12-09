@@ -45,7 +45,7 @@ export default function Home() {
 						formatValue={v => v.toFixed(0)}
 						duration={2000}
 						delay={300}
-						value={310}
+						value={30}
 						/>
 						+</b> other ML developers to save time and money on model training.
 					</Text>
