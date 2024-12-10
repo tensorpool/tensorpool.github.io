@@ -28,8 +28,8 @@ const theme = extendTheme({
 
 const title = 'TensorPool — Access GPUs in two lines of code';
 const description
-  = 'Save money, time, and the environment by finding someone to split a rideshare with on Ridepool.';
-const ogImage = 'https://ridepoolapp.com/images/meta-preview.png';
+  = 'Save ML developer time and money with TensorPool';
+const ogImage = 'https://tensorpool.dev/images/preview.jpeg';
 
 const Layout = ({children}) => (
 	<ChakraProvider theme={theme}>
@@ -40,10 +40,11 @@ const Layout = ({children}) => (
 			<meta name='title' content={title} />
 			<meta name='description' content={description} />
 			<meta name='viewport' content='initial-scale=1.0, width=device-width' />
+			<link rel="icon" href="/images/preview.jpeg" />
 
 			{/* Open Graph / Facebook */}
 			<meta property='og:type' content='website' />
-			<meta property='og:url' content='https://ridepoolapp.com/' />
+			<meta property='og:url' content='https://tensorpool.dev/' />
 			<meta property='og:title' content={title} />
 			<meta property='og:description' content={description} />
 			<meta property='og:image' content={ogImage} />
