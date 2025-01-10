@@ -64,14 +64,15 @@ const Layout = ({children}) => (
 			/>
 
 		</Head>
-
-		<Header />
+		
+		{/* uncomment when ready to include header and footer */}
+		{/* <Header /> */}
 
 		<Box py={[2, 5]} bg='rpblue' color='white'>
 			{children}
 		</Box>
 
-		<Footer />
+		{/* <Footer /> */}
 
 	</ChakraProvider>
 );

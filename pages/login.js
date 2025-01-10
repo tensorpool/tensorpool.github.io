@@ -236,7 +236,7 @@ const Login = () => {
                     <Center>
                         {loggedIn ? (
                             <Box>
-                                <Heading as="h3" size="md" color="green.500">
+                                <Heading as="h3" size="md">
                                     Successfully logged in!
                                 </Heading>
                                 {apiData && (
