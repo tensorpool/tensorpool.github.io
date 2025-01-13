@@ -26,7 +26,7 @@ const theme = extendTheme({
 	},
 });
 
-const title = 'TensorPool — Access GPUs in two lines of code';
+const title = 'TensorPool — Execute ML jobs on the cloud with no code';
 const description
   = 'Save ML developer time and money with TensorPool';
 const ogImage = 'https://tensorpool.dev/images/preview.jpeg';
