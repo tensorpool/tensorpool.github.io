@@ -26,7 +26,7 @@ const theme = extendTheme({
 	},
 });
 
-const title = 'TensorPool — Execute ML jobs on the cloud with no code';
+const title = 'TensorPool — Execute ML jobs on the cloud with natural language';
 const description
   = 'Save ML developer time and money with TensorPool';
 const ogImage = 'https://tensorpool.dev/images/preview.jpeg';
