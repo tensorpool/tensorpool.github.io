@@ -788,9 +788,8 @@
 // };
 
 // export default Login;
-//////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////////////
 import React, { useState, useEffect } from 'react';
 import {
     Button,
@@ -828,20 +827,27 @@ const Login = () => {
     const [checkingSession, setCheckingSession] = useState(true);
     const toast = useToast();
 
+    // Redirect LinkedIn users to default browser
     useEffect(() => {
         if (isLinkedInBrowser()) {
+            // Display a toast notifying the user
             toast({
-                title: 'Opening in your default browser...',
-                description:
-                    'LinkedIn’s in-app browser is not supported. Please continue in your default browser.',
+                title: 'Unsupported Browser Detected',
+                description: 'LinkedIn’s browser is not supported. Opening this page in Safari or Chrome.',
                 status: 'info',
-                duration: 3000,
+                duration: 5000,
                 isClosable: true,
             });
 
-            // Attempt to open the current page in the default browser
+            // Force open the URL in the user's default browser
             const url = window.location.href;
-            window.open(url, '_blank'); // Open in a new tab or default browser
+            setTimeout(() => {
+                const redirectLink = document.createElement('a');
+                redirectLink.href = url;
+                redirectLink.target = '_blank'; // Forces the link to open outside the LinkedIn app
+                redirectLink.rel = 'noopener noreferrer';
+                redirectLink.click();
+            }, 2000);
         }
     }, []);
 
