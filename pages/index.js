@@ -39,7 +39,7 @@ export default function Home() {
 						TensorPool
 					</Heading>
 					<Text as="h2" fontSize={['xl', '2xl']} my={[6, 3]}>
-						Execute cloud ML jobs with natural language.
+						Execute ML jobs on the cloud with no code.
 					</Text>
 					<Link href="/join">
 						<Button size="lg" bg="rpmblue" padding={6} my="4">
