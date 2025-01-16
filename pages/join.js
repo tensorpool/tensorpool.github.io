@@ -530,6 +530,563 @@
 //////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////
 
+// import React, { useState, useEffect } from 'react';
+// import {
+//     Button,
+//     Box,
+//     Center,
+//     Input,
+//     Heading,
+//     Text,
+//     useToast,
+// } from '@chakra-ui/react';
+// import { motion } from 'framer-motion';
+// import Layout from '../components/layout.js';
+// import { createClient } from '@supabase/supabase-js';
+
+// const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+// const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+
+// const MotionBox = motion(Box);
+// const MotionHeading = motion(Heading);
+// const MotionText = motion(Text);
+// const MotionButton = motion(Button);
+
+// const supabase = createClient(supabaseUrl, supabaseKey);
+
+// // Function to detect LinkedIn's in-app browser
+// const isLinkedInBrowser = () => {
+//     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+//     return /LinkedIn/i.test(userAgent);
+// };
+
+// const Login = () => {
+//     const [email, setEmail] = useState('');
+//     const [loading, setLoading] = useState(false);
+//     const [loggedIn, setLoggedIn] = useState(false);
+//     const [checkingSession, setCheckingSession] = useState(true);
+//     const toast = useToast();
+
+//     useEffect(() => {
+//         if (isLinkedInBrowser()) {
+//             toast({
+//                 title: 'Unsupported Browser Detected',
+//                 description: 'LinkedIn’s browser is not supported. Opening this page in Safari or Chrome.',
+//                 status: 'info',
+//                 duration: 5000,
+//                 isClosable: true,
+//             });
+
+//             const url = window.location.href;
+//             setTimeout(() => {
+//                 const redirectLink = document.createElement('a');
+//                 redirectLink.href = url;
+//                 redirectLink.target = '_blank';
+//                 redirectLink.rel = 'noopener noreferrer';
+//                 redirectLink.click();
+//             }, 2000);
+//         }
+//     }, []);
+
+//     // Option 2: Use Supabase Auth magic link
+//     const handleEmailSubmit = async () => {
+//         setLoading(true);
+//         try {
+//             const { error } = await supabase.auth.signInWithOtp({
+//                 email: email,
+//                 options: {
+//                     emailRedirectTo: `${window.location.origin}/join`
+//                 }
+//             });
+            
+//             if (error) throw error;
+
+//             toast({
+//                 title: 'Verification link sent!',
+//                 description: `Please check ${email} for a verification link.`,
+//                 status: 'success',
+//                 duration: 6000,
+//                 isClosable: true,
+//             });
+
+//             setEmail(''); // Clear the input field
+//         } catch (error) {
+//             toast({
+//                 title: 'Error sending verification.',
+//                 description: error.message,
+//                 status: 'error',
+//                 duration: 6000,
+//                 isClosable: true,
+//             });
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+//     const handleLogout = async () => {
+//         try {
+//             const { error } = await supabase.auth.signOut();
+//             if (error) throw error;
+
+//             setLoggedIn(false);
+
+//             toast({
+//                 title: 'Logged out successfully!',
+//                 status: 'success',
+//                 duration: 3000,
+//                 isClosable: true,
+//             });
+//         } catch (err) {
+//             toast({
+//                 title: 'Error logging out.',
+//                 description: err.message,
+//                 status: 'error',
+//                 duration: 6000,
+//                 isClosable: true,
+//             });
+//         }
+//     };
+
+//     useEffect(() => {
+//         const checkSession = async () => {
+//             try {
+//                 const { data: { session } } = await supabase.auth.getSession();
+//                 if (session?.user) {
+//                     setLoggedIn(true);
+//                 } else {
+//                     setLoggedIn(false);
+//                 }
+//             } catch (err) {
+//                 console.error('Error checking session:', err.message);
+//             } finally {
+//                 setCheckingSession(false);
+//             }
+//         };
+
+//         checkSession();
+
+//         const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+//             setLoggedIn(!!session?.user);
+//         });
+
+//         return () => {
+//             authListener.subscription.unsubscribe();
+//         };
+//     }, []);
+
+//     if (checkingSession) {
+//         return (
+//             <Layout>
+//                 <Center p={6} minHeight="100vh">
+//                     <MotionText
+//                         initial={{ opacity: 0 }}
+//                         animate={{ opacity: 1 }}
+//                         transition={{ duration: 1 }}
+//                     >
+//                         Checking session...
+//                     </MotionText>
+//                 </Center>
+//             </Layout>
+//         );
+//     }
+
+//     return (
+//         <Layout>
+//             <Center p={6} minHeight="100vh">
+//                 <MotionBox
+//                     initial={{ opacity: 0, y: 50 }}
+//                     animate={{ opacity: 1, y: 0 }}
+//                     transition={{ duration: 1 }}
+//                 >
+//                     <Center my={6}>
+//                         <Box>
+//                             {loggedIn ? (
+//                                 <MotionHeading
+//                                     as="h2"
+//                                     size="lg"
+//                                     my={6}
+//                                     initial={{ opacity: 0, x: -50 }}
+//                                     animate={{ opacity: 1, x: 0 }}
+//                                     transition={{ duration: 1 }}
+//                                 >
+//                                     Welcome to TensorPool!
+//                                 </MotionHeading>
+//                             ) : (
+//                                 <>
+//                                     <MotionHeading
+//                                         as="h2"
+//                                         size="lg"
+//                                         my={6}
+//                                         initial={{ opacity: 0, x: -50 }}
+//                                         animate={{ opacity: 1, x: 0 }}
+//                                         transition={{ duration: 1 }}
+//                                     >
+//                                         Welcome to TensorPool
+//                                     </MotionHeading>
+//                                     <MotionText
+//                                         initial={{ opacity: 0 }}
+//                                         animate={{ opacity: 1 }}
+//                                         transition={{ duration: 1, delay: 0.5 }}
+//                                     >
+//                                         Join the waitlist to get started
+//                                     </MotionText>
+//                                 </>
+//                             )}
+//                         </Box>
+//                     </Center>
+//                     <Center>
+//                         {loggedIn ? (
+//                             <MotionBox
+//                                 initial={{ opacity: 0 }}
+//                                 animate={{ opacity: 1 }}
+//                                 transition={{ duration: 1 }}
+//                             >
+//                                 <Heading as="h3" size="md">
+//                                     Successfully logged in! We will reach out if you are selected for beta testing.
+//                                 </Heading>
+//                                 <Center mt={6}>
+//                                     <MotionButton
+//                                         colorScheme="red"
+//                                         onClick={handleLogout}
+//                                         initial={{ opacity: 0 }}
+//                                         animate={{ opacity: 1 }}
+//                                         transition={{ duration: 1, delay: 0.3 }}
+//                                     >
+//                                         Log Out
+//                                     </MotionButton>
+//                                 </Center>
+//                             </MotionBox>
+//                         ) : (
+//                             <MotionBox
+//                                 initial={{ opacity: 0 }}
+//                                 animate={{ opacity: 1 }}
+//                                 transition={{ duration: 1 }}
+//                             >
+//                                 <Center m={3}>
+//                                     <Input
+//                                         placeholder="Enter your email"
+//                                         value={email}
+//                                         onChange={(e) => setEmail(e.target.value)}
+//                                         size="md"
+//                                         width="300px"
+//                                         mb={4}
+//                                     />
+//                                 </Center>
+//                                 <Center>
+//                                     <MotionButton
+//                                         bg="rpmblue"
+//                                         px={4}
+//                                         onClick={handleEmailSubmit}
+//                                         isLoading={loading}
+//                                         initial={{ opacity: 0 }}
+//                                         animate={{ opacity: 1 }}
+//                                         transition={{ duration: 1, delay: 0.3 }}
+//                                     >
+//                                         Submit Email
+//                                     </MotionButton>
+//                                 </Center>
+//                             </MotionBox>
+//                         )}
+//                     </Center>
+//                 </MotionBox>
+//             </Center>
+//         </Layout>
+//     );
+// };
+
+// export default Login;
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
+// import React, { useState, useEffect } from 'react';
+// import {
+//     Button,
+//     Box,
+//     Center,
+//     Input,
+//     Heading,
+//     Text,
+//     VStack,
+//     useToast,
+// } from '@chakra-ui/react';
+// import { motion } from 'framer-motion';
+// import Layout from '../components/layout.js';
+// import { createClient } from '@supabase/supabase-js';
+
+// const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+// const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+
+// const MotionBox = motion(Box);
+// const MotionHeading = motion(Heading);
+// const MotionText = motion(Text);
+// const MotionButton = motion(Button);
+
+// const supabase = createClient(supabaseUrl, supabaseKey);
+
+// const isLinkedInBrowser = () => {
+//     const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+//     return /LinkedIn/i.test(userAgent);
+// };
+
+// const Login = () => {
+//     const [email, setEmail] = useState('');
+//     const [name, setName] = useState('');
+//     const [loading, setLoading] = useState(false);
+//     const [loggedIn, setLoggedIn] = useState(false);
+//     const [checkingSession, setCheckingSession] = useState(true);
+//     const toast = useToast();
+
+//     useEffect(() => {
+//         if (isLinkedInBrowser()) {
+//             toast({
+//                 title: 'Unsupported Browser Detected',
+//                 description: 'LinkedIns browser is not supported. Opening this page in Safari or Chrome.',
+//                 status: 'info',
+//                 duration: 5000,
+//                 isClosable: true,
+//             });
+
+//             const url = window.location.href;
+//             setTimeout(() => {
+//                 const redirectLink = document.createElement('a');
+//                 redirectLink.href = url;
+//                 redirectLink.target = '_blank';
+//                 redirectLink.rel = 'noopener noreferrer';
+//                 redirectLink.click();
+//             }, 2000);
+//         }
+//     }, []);
+
+//     const handleSubmit = async () => {
+//         if (!email || !name) {
+//             toast({
+//                 title: 'Missing Information',
+//                 description: 'Please provide both your name and email.',
+//                 status: 'error',
+//                 duration: 4000,
+//                 isClosable: true,
+//             });
+//             return;
+//         }
+
+//         setLoading(true);
+//         try {
+//             const { error } = await supabase.auth.signInWithOtp({
+//                 email: email,
+//                 options: {
+//                     data: {
+//                         full_name: name
+//                     },
+//                     emailRedirectTo: `${window.location.origin}/join`
+//                 }
+//             });
+            
+//             if (error) throw error;
+
+//             toast({
+//                 title: 'Verification link sent!',
+//                 description: `Please check ${email} for a verification link.`,
+//                 status: 'success',
+//                 duration: 6000,
+//                 isClosable: true,
+//             });
+
+//             setEmail('');
+//             setName('');
+//         } catch (error) {
+//             toast({
+//                 title: 'Error sending verification.',
+//                 description: error.message,
+//                 status: 'error',
+//                 duration: 6000,
+//                 isClosable: true,
+//             });
+//         } finally {
+//             setLoading(false);
+//         }
+//     };
+
+//     const handleLogout = async () => {
+//         try {
+//             const { error } = await supabase.auth.signOut();
+//             if (error) throw error;
+
+//             setLoggedIn(false);
+
+//             toast({
+//                 title: 'Logged out successfully!',
+//                 status: 'success',
+//                 duration: 3000,
+//                 isClosable: true,
+//             });
+//         } catch (err) {
+//             toast({
+//                 title: 'Error logging out.',
+//                 description: err.message,
+//                 status: 'error',
+//                 duration: 6000,
+//                 isClosable: true,
+//             });
+//         }
+//     };
+
+//     useEffect(() => {
+//         const checkSession = async () => {
+//             try {
+//                 const { data: { session } } = await supabase.auth.getSession();
+//                 if (session?.user) {
+//                     setLoggedIn(true);
+//                 } else {
+//                     setLoggedIn(false);
+//                 }
+//             } catch (err) {
+//                 console.error('Error checking session:', err.message);
+//             } finally {
+//                 setCheckingSession(false);
+//             }
+//         };
+
+//         checkSession();
+
+//         const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
+//             setLoggedIn(!!session?.user);
+//         });
+
+//         return () => {
+//             authListener.subscription.unsubscribe();
+//         };
+//     }, []);
+
+//     if (checkingSession) {
+//         return (
+//             <Layout>
+//                 <Center p={6} minHeight="100vh">
+//                     <MotionText
+//                         initial={{ opacity: 0 }}
+//                         animate={{ opacity: 1 }}
+//                         transition={{ duration: 1 }}
+//                     >
+//                         Checking session...
+//                     </MotionText>
+//                 </Center>
+//             </Layout>
+//         );
+//     }
+
+//     return (
+//         <Layout>
+//             <Center p={6} minHeight="100vh">
+//                 <MotionBox
+//                     initial={{ opacity: 0, y: 50 }}
+//                     animate={{ opacity: 1, y: 0 }}
+//                     transition={{ duration: 1 }}
+//                 >
+//                     <Center my={6}>
+//                         <Box>
+//                             {loggedIn ? (
+//                                 <MotionHeading
+//                                     as="h2"
+//                                     size="lg"
+//                                     my={6}
+//                                     initial={{ opacity: 0, x: -50 }}
+//                                     animate={{ opacity: 1, x: 0 }}
+//                                     transition={{ duration: 1 }}
+//                                 >
+//                                     Welcome to TensorPool!
+//                                 </MotionHeading>
+//                             ) : (
+//                                 <>
+//                                     <MotionHeading
+//                                         as="h2"
+//                                         size="lg"
+//                                         my={6}
+//                                         initial={{ opacity: 0, x: -50 }}
+//                                         animate={{ opacity: 1, x: 0 }}
+//                                         transition={{ duration: 1 }}
+//                                     >
+//                                         Welcome to TensorPool
+//                                     </MotionHeading>
+//                                     <MotionText
+//                                         initial={{ opacity: 0 }}
+//                                         animate={{ opacity: 1 }}
+//                                         transition={{ duration: 1, delay: 0.5 }}
+//                                     >
+//                                         Join the waitlist to get started
+//                                     </MotionText>
+//                                 </>
+//                             )}
+//                         </Box>
+//                     </Center>
+//                     <Center>
+//                         {loggedIn ? (
+//                             <MotionBox
+//                                 initial={{ opacity: 0 }}
+//                                 animate={{ opacity: 1 }}
+//                                 transition={{ duration: 1 }}
+//                             >
+//                                 <Heading as="h3" size="md">
+//                                     Successfully logged in! We will reach out if you are selected for beta testing.
+//                                 </Heading>
+//                                 <Center mt={6}>
+//                                     <MotionButton
+//                                         colorScheme="red"
+//                                         onClick={handleLogout}
+//                                         initial={{ opacity: 0 }}
+//                                         animate={{ opacity: 1 }}
+//                                         transition={{ duration: 1, delay: 0.3 }}
+//                                     >
+//                                         Log Out
+//                                     </MotionButton>
+//                                 </Center>
+//                             </MotionBox>
+//                         ) : (
+//                             <MotionBox
+//                                 initial={{ opacity: 0 }}
+//                                 animate={{ opacity: 1 }}
+//                                 transition={{ duration: 1 }}
+//                             >
+//                                 <VStack spacing={4} align="center">
+//                                     <Input
+//                                         placeholder="Enter your full name"
+//                                         value={name}
+//                                         onChange={(e) => setName(e.target.value)}
+//                                         size="md"
+//                                         width="300px"
+//                                     />
+//                                     <Input
+//                                         placeholder="Enter your email"
+//                                         value={email}
+//                                         onChange={(e) => setEmail(e.target.value)}
+//                                         size="md"
+//                                         width="300px"
+//                                     />
+//                                     <MotionButton
+//                                         bg="rpmblue"
+//                                         px={4}
+//                                         onClick={handleSubmit}
+//                                         isLoading={loading}
+//                                         initial={{ opacity: 0 }}
+//                                         animate={{ opacity: 1 }}
+//                                         transition={{ duration: 1, delay: 0.3 }}
+//                                     >
+//                                         Join Waitlist
+//                                     </MotionButton>
+//                                 </VStack>
+//                             </MotionBox>
+//                         )}
+//                     </Center>
+//                 </MotionBox>
+//             </Center>
+//         </Layout>
+//     );
+// };
+
+// export default Login;
+
+//////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////
+
 import React, { useState, useEffect } from 'react';
 import {
     Button,
@@ -538,6 +1095,7 @@ import {
     Input,
     Heading,
     Text,
+    VStack,
     useToast,
 } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
@@ -554,47 +1112,34 @@ const MotionButton = motion(Button);
 
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-// Function to detect LinkedIn's in-app browser
-const isLinkedInBrowser = () => {
-    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
-    return /LinkedIn/i.test(userAgent);
-};
-
 const Login = () => {
     const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
     const [loading, setLoading] = useState(false);
     const [loggedIn, setLoggedIn] = useState(false);
     const [checkingSession, setCheckingSession] = useState(true);
     const toast = useToast();
 
-    useEffect(() => {
-        if (isLinkedInBrowser()) {
+    const handleSubmit = async () => {
+        if (!email || !name) {
             toast({
-                title: 'Unsupported Browser Detected',
-                description: 'LinkedIn’s browser is not supported. Opening this page in Safari or Chrome.',
-                status: 'info',
-                duration: 5000,
+                title: 'Missing Information',
+                description: 'Please provide both your name and email.',
+                status: 'error',
+                duration: 4000,
                 isClosable: true,
             });
-
-            const url = window.location.href;
-            setTimeout(() => {
-                const redirectLink = document.createElement('a');
-                redirectLink.href = url;
-                redirectLink.target = '_blank';
-                redirectLink.rel = 'noopener noreferrer';
-                redirectLink.click();
-            }, 2000);
+            return;
         }
-    }, []);
 
-    // Option 2: Use Supabase Auth magic link
-    const handleEmailSubmit = async () => {
         setLoading(true);
         try {
             const { error } = await supabase.auth.signInWithOtp({
                 email: email,
                 options: {
+                    data: {
+                        full_name: name
+                    },
                     emailRedirectTo: `${window.location.origin}/join`
                 }
             });
@@ -609,7 +1154,8 @@ const Login = () => {
                 isClosable: true,
             });
 
-            setEmail(''); // Clear the input field
+            setEmail('');
+            setName('');
         } catch (error) {
             toast({
                 title: 'Error sending verification.',
@@ -762,29 +1308,33 @@ const Login = () => {
                                 animate={{ opacity: 1 }}
                                 transition={{ duration: 1 }}
                             >
-                                <Center m={3}>
+                                <VStack spacing={4} align="center">
+                                    <Input
+                                        placeholder="Enter your full name"
+                                        value={name}
+                                        onChange={(e) => setName(e.target.value)}
+                                        size="md"
+                                        width="300px"
+                                    />
                                     <Input
                                         placeholder="Enter your email"
                                         value={email}
                                         onChange={(e) => setEmail(e.target.value)}
                                         size="md"
                                         width="300px"
-                                        mb={4}
                                     />
-                                </Center>
-                                <Center>
                                     <MotionButton
                                         bg="rpmblue"
                                         px={4}
-                                        onClick={handleEmailSubmit}
+                                        onClick={handleSubmit}
                                         isLoading={loading}
                                         initial={{ opacity: 0 }}
                                         animate={{ opacity: 1 }}
                                         transition={{ duration: 1, delay: 0.3 }}
                                     >
-                                        Submit Email
+                                        Join Waitlist
                                     </MotionButton>
-                                </Center>
+                                </VStack>
                             </MotionBox>
                         )}
                     </Center>
