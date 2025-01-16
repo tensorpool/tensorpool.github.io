@@ -56,7 +56,7 @@ export default function Home() {
 					transition={{ duration: 1, delay: 0.5 }} // Animation with delay
 				>
 					<Center>
-						<Image src="/images/logo-transparent.svg" boxSize="90%" />
+						<Image src="/images/logo-transparent.svg" boxSize={["60%", "90%"]} />
 					</Center>
 				</MotionBox>
 			</Flex>
