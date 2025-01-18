@@ -6,10 +6,12 @@ import Header from './header.js';
 import Footer from './footer.js';
 import '@fontsource/space-grotesk/600.css';
 import '@fontsource/red-hat-display/500.css';
+import '@fontsource/poppins/400.css';
 
 const theme = extendTheme({
 	fonts: {
-		heading: '\'Space Grotesk\', sans-serif',
+		//heading: '\'Space Grotesk\', sans-serif',
+		heading: "'Poppins', sans-serif",
 		body: '\'Red Hat Display\', sans-serif',
 	},
 	colors: {

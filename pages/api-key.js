@@ -31,9 +31,9 @@ export default function ApiKey() {
   const fetchApiKey = async (userId) => {
     try {
       const { data, error } = await supabase
-        .from('UserAPIs')
-        .select('api_id, api_key')
-        .eq('user_id', userId)
+        .from('users')
+        .select('api_key')
+        .eq('uid', userId)
         .single();
 
       if (error) throw error;
@@ -55,7 +55,13 @@ export default function ApiKey() {
   if (loading) {
     return (
       <Layout>
-        <Text>Loading...</Text>
+        <Box ml="220px" 
+        minH="100vh" 
+        display="flex"
+        flexDirection="column"
+        >
+          <Text>Loading...</Text>
+        </Box>
       </Layout>
     );
   }

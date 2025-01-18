@@ -72,7 +72,13 @@ export default function Dashboard() {
   if (loading) {
     return (
       <Layout>
-        <Text>Loading...</Text>
+        <Box ml="220px" 
+        minH="100vh" 
+        display="flex"
+        flexDirection="column"
+        >
+          <Text>Loading...</Text>
+        </Box>
       </Layout>
     );
   }
