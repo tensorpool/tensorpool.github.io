@@ -80,16 +80,21 @@ export default function Dashboard() {
   return (
     <Layout>
       <SidePanel /> {/* Add SidePanel */}
-      <Box ml="220px" p={4}> {/* Adjust content to make space for the side panel */}
+      <Box ml="220px" 
+        minH="100vh" 
+        
+        display="flex"
+        flexDirection="column"
+        >
         <Heading as="h1" size="xl" mb={6}>Dashboard</Heading>
         <Table variant="simple">
           <Thead>
             <Tr>
-              <Th>Job ID</Th>
-              <Th>Status</Th>
-              <Th>Date Created</Th>
-              <Th>stdout Link</Th>
-              <Th>Output Link</Th>
+              <Th color='white' fontSize='lg'>Job ID</Th>
+              <Th color='white' fontSize='lg'>Status</Th>
+              <Th color='white' fontSize='lg'>Date Created</Th>
+              <Th color='white' fontSize='lg'>stdout Link</Th>
+              <Th color='white' fontSize='lg'>Output Link</Th>
             </Tr>
           </Thead>
           <Tbody>

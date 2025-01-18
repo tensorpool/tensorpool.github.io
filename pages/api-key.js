@@ -63,12 +63,15 @@ export default function ApiKey() {
   return (
     <Layout>
       <SidePanel /> {/* Add SidePanel */}
-      <Box ml="220px" p={4}> {/* Adjust content to make space for the side panel */}
+      <Box ml="220px" 
+        minH="100vh" 
+        display="flex"
+        flexDirection="column"
+        >
         <Heading as="h1" size="xl" mb={6}>API Key</Heading>
         {apiData ? (
           <Box>
             <Text mb={4}><strong>API Key:</strong> {apiData.api_key}</Text>
-            <Text mb={4}><strong>API ID:</strong> {apiData.api_id}</Text>
           </Box>
         ) : (
           <Text mb={4}>No API key found. Please contact support.</Text>
