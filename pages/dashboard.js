@@ -82,7 +82,6 @@ export default function Dashboard() {
       <SidePanel /> {/* Add SidePanel */}
       <Box ml="220px" 
         minH="100vh" 
-        
         display="flex"
         flexDirection="column"
         >
