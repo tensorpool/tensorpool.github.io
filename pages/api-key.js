@@ -32,7 +32,7 @@ export default function ApiKey() {
     try {
       const { data, error } = await supabase
         .from('users')
-        .select('api_key')
+        .select('api_key, active')
         .eq('uid', userId)
         .single();
 
@@ -77,7 +77,11 @@ export default function ApiKey() {
         <Heading as="h1" size="xl" mb={6}>API Key</Heading>
         {apiData ? (
           <Box>
-            <Text mb={4}><strong>API Key:</strong> {apiData.api_key}</Text>
+            {apiData.active ? (
+              <Text mb={4}><strong>API Key:</strong> {apiData.api_key}</Text>
+            ) : (
+              <Text mb={4} color="white" fontSize='lg'>Your API Key has not been activated yet. Check back later...</Text>
+            )}
           </Box>
         ) : (
           <Text mb={4}>No API key found. Please contact support.</Text>
