@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { createClient } from '@supabase/supabase-js';
-import { Box, Heading, Text, useToast } from '@chakra-ui/react';
+import { Box, Heading, Text, useToast, Link } from '@chakra-ui/react';
 import Layout from '../components/layout';
 import SidePanel from '../components/SidePanel'; // Import SidePanel
 
@@ -80,8 +80,13 @@ export default function ApiKey() {
             {apiData.active ? (
               <Text mb={4}><strong>API Key:</strong> {apiData.api_key}</Text>
             ) : (
-              <Text mb={4} color="white" fontSize='lg'>You are on the waitlist so your API Key has not been activated. Check back later...</Text>
-            )}
+            <Text mb={4} color="white" fontSize='lg'>
+              You are on the waitlist so your API Key has not been activated. Check back later or{' '}
+              <Link href="mailto:contact@tensorpool.dev" color="blue.500" textDecoration="underline">
+                reach out to support 
+              </Link>{' '}
+               to expedite this process.
+            </Text>            )}
           </Box>
         ) : (
           <Text mb={4}>No API key found. Please contact support.</Text>
