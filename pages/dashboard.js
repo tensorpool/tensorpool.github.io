@@ -5,7 +5,7 @@
 // import { createClient } from '@supabase/supabase-js';
 // import { Box, Heading, Text, Button, useToast, Table, Thead, Tbody, Tr, Th, Td, Link } from '@chakra-ui/react';
 // import Layout from '../components/layout.js';
-// import SidePanel from '../components/SidePanel'; // Import SidePanel
+// import SidePanel from '../components/SidePanel';
 
 // const supabaseUrl = 'https://jxzbchdihjvupnnusedd.supabase.co';
 // const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
@@ -14,6 +14,7 @@
 // export default function Dashboard() {
 //   const [jobs, setJobs] = useState([]);
 //   const [loading, setLoading] = useState(true);
+//   const [loggingOut, setLoggingOut] = useState(false);
 //   const router = useRouter();
 //   const toast = useToast();
 
@@ -29,6 +30,20 @@
 
 //     checkSession();
 //   }, [router]);
+
+//   // Listen for auth state changes
+//   useEffect(() => {
+//     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+//       if (event === 'SIGNED_OUT') {
+//         // Use window.location for a full page reload on sign out
+//         window.location.href = '/join';
+//       }
+//     });
+
+//     return () => {
+//       subscription?.unsubscribe();
+//     };
+//   }, []);
 
 //   const fetchJobs = async (userId) => {
 //     try {
@@ -55,9 +70,21 @@
 //   };
 
 //   const handleLogout = async () => {
+//     if (loggingOut) return; // Prevent multiple clicks
+    
+//     setLoggingOut(true);
 //     try {
-//       await supabase.auth.signOut();
-//       router.push('/join');
+//       const { error } = await supabase.auth.signOut();
+//       if (error) throw error;
+
+//       // Clear local state
+//       setJobs([]);
+      
+//       // Force a small delay to ensure Supabase completes the sign-out
+//       await new Promise(resolve => setTimeout(resolve, 500));
+      
+//       // Use window.location for a full page reload
+//       window.location.href = '/join';
 //     } catch (error) {
 //       console.error('Error logging out:', error);
 //       toast({
@@ -66,16 +93,18 @@
 //         duration: 5000,
 //         isClosable: true,
 //       });
+//       setLoggingOut(false);
 //     }
 //   };
 
 //   if (loading) {
 //     return (
 //       <Layout>
-//         <Box ml="220px" 
-//         minH="100vh" 
-//         display="flex"
-//         flexDirection="column"
+//         <Box 
+//           ml="220px" 
+//           minH="100vh" 
+//           display="flex"
+//           flexDirection="column"
 //         >
 //           <Text>Loading...</Text>
 //         </Box>
@@ -85,12 +114,13 @@
 
 //   return (
 //     <Layout>
-//       <SidePanel /> {/* Add SidePanel */}
-//       <Box ml="220px" 
+//       <SidePanel />
+//       <Box 
+//         ml="220px" 
 //         minH="100vh" 
 //         display="flex"
 //         flexDirection="column"
-//         >
+//       >
 //         <Heading as="h1" size="xl" mb={6}>Dashboard</Heading>
 //         <Table variant="simple">
 //           <Thead>
@@ -122,13 +152,19 @@
 //             ))}
 //           </Tbody>
 //         </Table>
-//         <Button colorScheme="red" onClick={handleLogout} mt={6}>Log Out</Button>
+//         <Button 
+//           colorScheme="red" 
+//           onClick={handleLogout} 
+//           mt={6}
+//           isLoading={loggingOut}
+//           loadingText="Logging out..."
+//         >
+//           Log Out
+//         </Button>
 //       </Box>
 //     </Layout>
 //   );
 // }
-
-//////////////////////////////////////////////////////////////////////////////////////////
 
 'use client';
 
@@ -147,6 +183,7 @@ export default function Dashboard() {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [loggingOut, setLoggingOut] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(false);
   const router = useRouter();
   const toast = useToast();
 
@@ -163,11 +200,9 @@ export default function Dashboard() {
     checkSession();
   }, [router]);
 
-  // Listen for auth state changes
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_OUT') {
-        // Use window.location for a full page reload on sign out
         window.location.href = '/join';
       }
     });
@@ -202,20 +237,15 @@ export default function Dashboard() {
   };
 
   const handleLogout = async () => {
-    if (loggingOut) return; // Prevent multiple clicks
+    if (loggingOut) return;
     
     setLoggingOut(true);
     try {
       const { error } = await supabase.auth.signOut();
       if (error) throw error;
 
-      // Clear local state
       setJobs([]);
-      
-      // Force a small delay to ensure Supabase completes the sign-out
       await new Promise(resolve => setTimeout(resolve, 500));
-      
-      // Use window.location for a full page reload
       window.location.href = '/join';
     } catch (error) {
       console.error('Error logging out:', error);
@@ -233,10 +263,12 @@ export default function Dashboard() {
     return (
       <Layout>
         <Box 
-          ml="220px" 
+          ml={isCollapsed ? "0" : "220px"}
           minH="100vh" 
           display="flex"
           flexDirection="column"
+          transition="margin-left 0.3s ease"
+          pl={10} // Added 10px left padding
         >
           <Text>Loading...</Text>
         </Box>
@@ -246,12 +278,14 @@ export default function Dashboard() {
 
   return (
     <Layout>
-      <SidePanel />
+      <SidePanel isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <Box 
-        ml="220px" 
+        ml={isCollapsed ? "0" : "220px"}
         minH="100vh" 
         display="flex"
         flexDirection="column"
+        transition="margin-left 0.3s ease"
+        pl={10} // Added 10px left padding
       >
         <Heading as="h1" size="xl" mb={6}>Dashboard</Heading>
         <Table variant="simple">
