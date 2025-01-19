@@ -1114,6 +1114,7 @@ const Login = () => {
                                                 Having trouble logging in? Copy the link and open it in a browser:
                                             </Text>
                                             <Button
+                                                bg="rpmblue"
                                                 onClick={() => navigator.clipboard.writeText(window.location.href)}
                                                 colorScheme="blue"
                                             >
