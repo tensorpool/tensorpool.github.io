@@ -80,7 +80,7 @@ export default function ApiKey() {
             {apiData.active ? (
               <Text mb={4}><strong>API Key:</strong> {apiData.api_key}</Text>
             ) : (
-              <Text mb={4} color="white" fontSize='lg'>Your API Key has not been activated yet. Check back later...</Text>
+              <Text mb={4} color="white" fontSize='lg'>You are on the waitlist so your API Key has not been activated. Check back later...</Text>
             )}
           </Box>
         ) : (
