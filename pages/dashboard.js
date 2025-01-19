@@ -15,6 +15,7 @@
 //   const [jobs, setJobs] = useState([]);
 //   const [loading, setLoading] = useState(true);
 //   const [loggingOut, setLoggingOut] = useState(false);
+//   const [isCollapsed, setIsCollapsed] = useState(false);
 //   const router = useRouter();
 //   const toast = useToast();
 
@@ -31,11 +32,9 @@
 //     checkSession();
 //   }, [router]);
 
-//   // Listen for auth state changes
 //   useEffect(() => {
 //     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
 //       if (event === 'SIGNED_OUT') {
-//         // Use window.location for a full page reload on sign out
 //         window.location.href = '/join';
 //       }
 //     });
@@ -70,20 +69,15 @@
 //   };
 
 //   const handleLogout = async () => {
-//     if (loggingOut) return; // Prevent multiple clicks
+//     if (loggingOut) return;
     
 //     setLoggingOut(true);
 //     try {
 //       const { error } = await supabase.auth.signOut();
 //       if (error) throw error;
 
-//       // Clear local state
 //       setJobs([]);
-      
-//       // Force a small delay to ensure Supabase completes the sign-out
 //       await new Promise(resolve => setTimeout(resolve, 500));
-      
-//       // Use window.location for a full page reload
 //       window.location.href = '/join';
 //     } catch (error) {
 //       console.error('Error logging out:', error);
@@ -101,10 +95,12 @@
 //     return (
 //       <Layout>
 //         <Box 
-//           ml="220px" 
+//           ml={isCollapsed ? "0" : "220px"}
 //           minH="100vh" 
 //           display="flex"
 //           flexDirection="column"
+//           transition="margin-left 0.3s ease"
+//           pl={10} // Added 10px left padding
 //         >
 //           <Text>Loading...</Text>
 //         </Box>
@@ -114,12 +110,14 @@
 
 //   return (
 //     <Layout>
-//       <SidePanel />
+//       <SidePanel isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 //       <Box 
-//         ml="220px" 
+//         ml={isCollapsed ? "0" : "220px"}
 //         minH="100vh" 
 //         display="flex"
 //         flexDirection="column"
+//         transition="margin-left 0.3s ease"
+//         pl={10} // Added 10px left padding
 //       >
 //         <Heading as="h1" size="xl" mb={6}>Dashboard</Heading>
 //         <Table variant="simple">
@@ -288,36 +286,38 @@ export default function Dashboard() {
         pl={10} // Added 10px left padding
       >
         <Heading as="h1" size="xl" mb={6}>Dashboard</Heading>
-        <Table variant="simple">
-          <Thead>
-            <Tr>
-              <Th color='white' fontSize='lg'>Job ID</Th>
-              <Th color='white' fontSize='lg'>Status</Th>
-              <Th color='white' fontSize='lg'>Date Created</Th>
-              <Th color='white' fontSize='lg'>stdout Link</Th>
-              <Th color='white' fontSize='lg'>Output Link</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {jobs.map((job) => (
-              <Tr key={job.id}>
-                <Td>{job.id}</Td>
-                <Td>{job.status}</Td>
-                <Td>{new Date(job.created_at).toLocaleString()}</Td>
-                <Td>
-                  <Link href={job.stdout_link} isExternal color="blue.500">
-                    View stdout
-                  </Link>
-                </Td>
-                <Td>
-                  <Link href={job.output_link} isExternal color="blue.500">
-                    View Output
-                  </Link>
-                </Td>
+        <Box overflowX="auto" width="100%">
+          <Table variant="simple" minWidth="800px">
+            <Thead>
+              <Tr>
+                <Th color='white' fontSize='lg'>Job ID</Th>
+                <Th color='white' fontSize='lg'>Status</Th>
+                <Th color='white' fontSize='lg'>Date Created</Th>
+                <Th color='white' fontSize='lg'>stdout Link</Th>
+                <Th color='white' fontSize='lg'>Output Link</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {jobs.map((job) => (
+                <Tr key={job.id}>
+                  <Td>{job.id}</Td>
+                  <Td>{job.status}</Td>
+                  <Td>{new Date(job.created_at).toLocaleString()}</Td>
+                  <Td>
+                    <Link href={job.stdout_link} isExternal color="blue.500">
+                      View stdout
+                    </Link>
+                  </Td>
+                  <Td>
+                    <Link href={job.output_link} isExternal color="blue.500">
+                      View Output
+                    </Link>
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
         <Button 
           colorScheme="red" 
           onClick={handleLogout} 
