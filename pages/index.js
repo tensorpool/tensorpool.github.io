@@ -43,7 +43,7 @@ export default function Home() {
 					</Text>
 					<Link href="/join">
 						<Button size="lg" bg="rpmblue" padding={6} my="4">
-							Join Waitlist
+							Sign Up
 						</Button>
 					</Link>
 				</MotionBox>
