@@ -38,7 +38,7 @@ const Layout = ({children}) => (
 
 		<Head>
 			{/* Primary Meta Tags */}
-			<title>TensorPool — Access GPUs in two lines of code</title>
+			<title>TensorPool — the easiest way to execute ML jobs on the cloud</title>
 			<meta name='title' content={title} />
 			<meta name='description' content={description} />
 			<meta name='viewport' content='initial-scale=1.0, width=device-width' />
