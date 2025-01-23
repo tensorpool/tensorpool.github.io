@@ -1,11 +1,10 @@
-// import React, { useState } from 'react';
+// import React from 'react';
 // import { Box, Button, VStack, IconButton } from '@chakra-ui/react';
 // import { useRouter } from 'next/navigation';
 // import { ChevronRight, ChevronLeft } from 'lucide-react';
 
-// const SidePanel = () => {
+// const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
 //   const router = useRouter();
-//   const [isCollapsed, setIsCollapsed] = useState(false);
 
 //   return (
 //     <>
@@ -64,18 +63,38 @@
 
 // export default SidePanel;
 
-
-import React from 'react';
+import React, { useState } from 'react';
 import { Box, Button, VStack, IconButton } from '@chakra-ui/react';
 import { useRouter } from 'next/navigation';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = 'https://jxzbchdihjvupnnusedd.supabase.co';
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
   const router = useRouter();
+  const [loggingOut, setLoggingOut] = useState(false);
+
+  const handleLogout = async () => {
+    if (loggingOut) return;
+    
+    setLoggingOut(true);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) throw error;
+
+      await new Promise(resolve => setTimeout(resolve, 500));
+      window.location.href = '/join';
+    } catch (error) {
+      console.error('Error logging out:', error);
+      setLoggingOut(false);
+    }
+  };
 
   return (
     <>
-      {/* Toggle Button - Always visible */}
       <IconButton
         icon={isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
         onClick={() => setIsCollapsed(!isCollapsed)}
@@ -91,7 +110,6 @@ const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
         transition="left 0.3s ease"
       />
 
-      {/* Panel Content */}
       <Box
         position="fixed"
         left={isCollapsed ? "-200px" : "0"}
@@ -104,6 +122,8 @@ const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
         transition="left 0.3s ease"
         bg="rpblue"
         zIndex={999}
+        display="flex"
+        flexDirection="column"
       >
         <VStack spacing={4} align="stretch" mt={12}>
           <Button
@@ -123,6 +143,16 @@ const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
             API Key
           </Button>
         </VStack>
+        <Button 
+          colorScheme="red" 
+          onClick={handleLogout} 
+          isLoading={loggingOut}
+          loadingText="Logging out..."
+          mt="auto"
+          mb={4}
+        >
+          Log Out
+        </Button>
       </Box>
     </>
   );

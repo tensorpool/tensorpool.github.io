@@ -82,7 +82,7 @@ export default function ApiKey() {
             ) : (
             <Text mb={4} color="white" fontSize='lg'>
               You are on the waitlist so your API Key has not been activated. Check back later or{' '}
-              <Link href="mailto:contact@tensorpool.dev" color="blue.500" textDecoration="underline">
+              <Link href="mailto:team@tensorpool.dev" color="blue.500" textDecoration="underline">
                 reach out to support 
               </Link>{' '}
                to expedite this process.
