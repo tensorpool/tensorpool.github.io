@@ -1353,7 +1353,7 @@ const Login = () => {
 
     return (
         <Layout>
-            <Center p={6} minHeight="100vh">
+            <Center p={6} minHeight="50vh">
                 <MotionBox
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -1403,7 +1403,7 @@ const Login = () => {
                                 transition={{ duration: 1 }}
                             >
                                 <Heading as="h3" size="md">
-                                    Successfully logged in! We will reach out if you are selected for beta testing.
+                                    Loading...
                                 </Heading>
                                 <Center mt={6}>
                                     <MotionButton

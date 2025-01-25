@@ -43,8 +43,14 @@ const Price = () => (
                 justifyContent="center"
                 height="260px"
             >
-                <Text fontSize="lg" mb={6}>
-                    $20 on us. Free T4s. Don't pay for idle GPUs. Don't pay for configuration.
+                <Text fontSize="xl" mb={6}>
+                    $10 on us.
+                </Text>
+                <Text fontSize="xl" mb={6}>
+                    Don't pay for idle GPUs.
+                </Text>
+                <Text fontSize="xl" mb={6}>
+                    Don't pay for configuration.
                 </Text>
             </Box>
 
@@ -62,15 +68,15 @@ const Price = () => (
                 height="260px"
             >
                 <Heading as="h2" size="lg" mb={4}>
-                    Pricing
+                    Savings Based Pricing
                 </Heading>
-                <Text fontSize="lg" mb={2}>
-                    <strong>$0.10 / GB ingress</strong>
+                {/* <Text fontSize="xl" mb={2}>
+                    <strong>Savings based pricing</strong>
+                </Text> */}
+                <Text fontSize="xl" mb={2}>
+                    We take a fraction of how much money you save by using us.
                 </Text>
-                <Text fontSize="lg" mb={2}>
-                    <strong>$1.00 / GB egress</strong>
-                </Text>
-                <Text justifyContent="center">All GPUs cost the same with TensorPool.</Text>
+                {/* <Text justifyContent="center">All GPUs cost the same with TensorPool.</Text> */}
             </Box>
         </Flex>
 
@@ -94,12 +100,12 @@ const Price = () => (
                 <Heading as="h4" size="md" mb={4}>
                 Sign up in seconds
                 </Heading>
-                <Text mb={2}>✓ $20 free credit</Text>
-                <Text mb={2}>✓ Free NVIDIA T4s</Text>
+                <Text mb={2}>✓ $10 free credit</Text>
+                <Text mb={2}>✓ Multi-cloud support</Text>
                 <Text mb={2}>✓ Multi-GPU support</Text>
-                <Text mb={2}>✗ Base rate</Text>
-                <Text mb={4}>✗ Pay for idle GPUs</Text>
-                <Link href='/login'> <Button colorScheme="blue" w={['75%', '50%']}>Sign Up</Button></Link>
+                <Text mb={2}>✓ No base rate</Text>
+                <Text mb={4}>✓ Don't pay for idle GPUs</Text>
+                <Link href='/join'> <Button colorScheme="blue" w={['75%', '50%']}>Sign Up</Button></Link>
             </Box>
 
             <Box
@@ -124,9 +130,9 @@ const Price = () => (
                 <Text mb={2}>✓ Use existing cloud or on-prem deployments</Text>
                 <Text mb={2}>✓ 24/7 support</Text>
                 <Text mb={2}>✓ Monitoring tools</Text>
-                <Text mb={2}>✗ Time & money wasted on onboarding</Text>
-                <Text mb={4}>✗ Pay for idle GPUs</Text>
-                <Link href="mailto:tsvoboda@stanford.edu?subject=TensorPool Enterprise Inquiry">
+                <Text mb={2}>✓ No time & money wasted on onboarding</Text>
+                <Text mb={4}>✓ Don't pay for idle GPUs</Text>
+                <Link href="mailto:team@tensorpool.dev?subject=TensorPool Enterprise Inquiry">
                     <Button colorScheme="blue" w={['75%', '50%']}>Contact Us</Button>
                 </Link>
             </Box>

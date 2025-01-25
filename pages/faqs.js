@@ -73,13 +73,9 @@ const faq = () => (
 				</h2>
 				<AccordionPanel pb={4}>
 					<Text ml={2} fontSize='md'>
-            			TensorPool aims to make the ML developer experience seamless. 
-						It does this by attacking two major problems: Access and pricing. 
-						Right now, if you want to use a GPU, you have to jump through all sorts of hoops 
-						such as with configuration and figuring out what GPU to assign what ML model to.
-						You also pay per hour of GPU usage, instead of by how much compute you're actually using.
-						With TensorPool, all you have to do is add two lines of code to run your model, and you
-						pay by model size instead of time spent on a GPU instance.
+						Our mission is to 10x ML engineering velocity. We do this by attacking two major problems: Access and pricing. 
+						Right now, to use a GPU, configuration is a massive headache. GPUs are also very expensive.
+						With TensorPool, you never have to configure a machine again, and you pay half as much as with major clodu providers for the same quality GPU instance.
 					</Text>
 				</AccordionPanel>
 			</AccordionItem>
@@ -94,7 +90,7 @@ const faq = () => (
 				</h2>
 				<AccordionPanel pb={4}>
 					<Text ml={2} fontSize='md'>
-            Yes, but we give away $20 of free usage to new users before requiring payment. Try us out! If you like us,
+            Yes, but we give away $10 of free usage to new users before requiring payment. After that, we end up being half the price of other cloud GPU providers due to core technological advancements. Try us out! If you like us,
 			continue paying. If you don't, then dont! :)
 					</Text>
 				</AccordionPanel>
@@ -111,7 +107,8 @@ const faq = () => (
 				<AccordionPanel pb={4}>
 					{/*TODO: activate hyperlink*/}
 					<Text ml={2} fontSize='md'>
-							Reach out to us at <Text ml={2} fontSize='md' as='u'>team@tensorpool.dev</Text>! We'd love to learn about your use case and how we can help.
+							Reach out to us at{' '}<Link href="mailto:team@tensorpool.dev" color="white" textDecoration="underline">
+                team@tensorpool.dev</Link>! We'd love to learn about your use case and how we can help.
 					</Text>
 				</AccordionPanel>
 			</AccordionItem>
@@ -127,7 +124,7 @@ const faq = () => (
 				<AccordionPanel pb={4}>
 					{/*TODO: activate hyperlink*/}
 					<Text ml={2} fontSize='md'>
-							You should use TensorPool on small to medium sized models, maxing out at a few hundred gigabytes.
+							Whenever you want to train an ML model!
 					</Text>
 				</AccordionPanel>
 			</AccordionItem>
@@ -142,9 +139,7 @@ const faq = () => (
 				</h2>
 				<AccordionPanel pb={4}>
 					<Text ml={2} fontSize='md'>
-							All of our status quo competitors require immense amounts of time to wasted on setup or figuring out 
-							what GPU to run what model on. They also have a per-hour pricing model that ends up being very expensive.
-							You should use TensorPool if you want a cheaper, easier solution.
+							All of our status quo competitors require immense amounts time wasted on configuration and are incredibly expensive. With TensorPool, GPU configuration and orchestration are handled for you, and the pricing is much more reasonable.
 					</Text>
 				</AccordionPanel>
 			</AccordionItem>

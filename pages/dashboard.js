@@ -81,7 +81,7 @@ export default function Dashboard() {
       <SidePanel isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <Box 
         ml={isCollapsed ? "0" : "220px"}
-        minH="100vh" 
+        minH="49vh" 
         display="flex"
         flexDirection="column"
         transition="margin-left 0.3s ease"
