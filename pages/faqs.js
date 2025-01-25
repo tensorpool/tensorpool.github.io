@@ -75,7 +75,7 @@ const faq = () => (
 					<Text ml={2} fontSize='md'>
 						Our mission is to 10x ML engineering velocity. We do this by attacking two major problems: Access and pricing. 
 						Right now, to use a GPU, configuration is a massive headache. GPUs are also very expensive.
-						With TensorPool, you never have to configure a machine again, and you pay half as much as with major clodu providers for the same quality GPU instance.
+						With TensorPool, you never have to configure a machine again, and you pay half as much as with major cloud providers for the same quality GPU instance.
 					</Text>
 				</AccordionPanel>
 			</AccordionItem>
