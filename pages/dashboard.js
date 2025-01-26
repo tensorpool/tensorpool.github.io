@@ -112,14 +112,14 @@ export default function Dashboard() {
                     })}
                   </Td>
                   <Td>
-                    {job.status === "NOTIFIED" ? (
+                    {job.is_notified ? (
                       <Link href={job.stdout_link} isExternal color="blue.500">
                         View stdout
                       </Link>
                     ) : <Text color="gray.500">N/A</Text>}
                   </Td>
                   <Td>
-                    {job.status === "NOTIFIED" ? (
+                    {job.is_notified ? (
                       <Link href={job.output_link} isExternal color="blue.500">
                         View Output
                       </Link>

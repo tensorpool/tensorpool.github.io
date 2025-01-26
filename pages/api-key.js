@@ -78,7 +78,7 @@ export default function ApiKey() {
         {apiData ? (
           <Box>
             {apiData.active ? (
-              <Text mb={4}><strong>API Key:</strong> {apiData.api_key}</Text>
+              <Text mb={4}> {apiData.api_key}</Text>
             ) : (
             <Text mb={4} color="white" fontSize='lg'>
               You are on the waitlist so your API Key has not been activated. Check back later or{' '}
