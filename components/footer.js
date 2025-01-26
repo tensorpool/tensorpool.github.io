@@ -23,7 +23,7 @@ const links = [
 const links2 = [
 	{title: 'Pricing', href: '/pricing'},
 	// {title: 'Documentation', href:'https://tensorpool.mintlify.app/quickstart'},
-	{title: 'Documentation', href:'https://github.com/tensorpool/tensorpool-nightly'},
+	{title: 'Documentation', href:'https://github.com/tensorpool/tensorpool'},
 	//{title: 'Contact Sales', href: 'mailto:team@tensorpool.dev'},
 	{title: 'How It Works', href: '/how-it-works'},
 	// {title: 'FAQs', href: '/faqs'},

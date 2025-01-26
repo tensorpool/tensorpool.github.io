@@ -165,7 +165,7 @@ const Header = () => {
             </Button>
           </Link>
           
-          <Link href="https://github.com/tensorpool/tensorpool-nightly" isExternal>
+          <Link href="https://github.com/tensorpool/tensorpool" isExternal>
             <Button bg="transparent" borderColor="white" borderWidth="1.5px" borderRadius="25">
               Docs
             </Button>
