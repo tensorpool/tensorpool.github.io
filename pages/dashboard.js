@@ -144,6 +144,9 @@ import { createClient } from '@supabase/supabase-js';
 import { Box, Heading, Text, Table, Thead, Tbody, Tr, Th, Td, Link } from '@chakra-ui/react';
 import Layout from '../components/layout.js';
 import SidePanel from '../components/SidePanel';
+import Script from 'next/script';
+
+
 
 const supabaseUrl = 'https://jxzbchdihjvupnnusedd.supabase.co';
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
@@ -235,6 +238,19 @@ export default function Dashboard() {
 
   return (
     <Layout>
+      <Script
+        src="https://www.googletagmanager.com/gtag/js?id=G-L6P28ETFYK"
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-L6P28ETFYK');
+        `}
+      </Script>
       <SidePanel isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <Box 
         ml={isCollapsed ? "0" : "220px"}
