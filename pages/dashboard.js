@@ -236,10 +236,12 @@ export default function Dashboard() {
     );
   }
 
+
+  
   return (
     <Layout>
       <Script
-        src="https://www.googletagmanager.com/gtag/js?id=G-L6P28ETFYK"
+        src="https://www.googletagmanager.com/gtag/js?id=G-33SGJV6BR1"
         strategy="afterInteractive"
       />
       <Script id="google-analytics" strategy="afterInteractive">
@@ -248,7 +250,7 @@ export default function Dashboard() {
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
-          gtag('config', 'G-L6P28ETFYK');
+          gtag('config', 'G-33SGJV6BR1');
         `}
       </Script>
       <SidePanel isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
