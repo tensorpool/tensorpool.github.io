@@ -1485,13 +1485,6 @@ const Login = () => {
                                     >
                                         Welcome to TensorPool
                                     </MotionHeading>
-                                    <MotionText
-                                        initial={{ opacity: 0 }}
-                                        animate={{ opacity: 1 }}
-                                        transition={{ duration: 1, delay: 0.5 }}
-                                    >
-                                        Join the waitlist to get started
-                                    </MotionText>
                                 </>
                             )}
                         </Box>
@@ -1547,7 +1540,7 @@ const Login = () => {
                                             transition={{ duration: 1, delay: 0.3 }}
                                             bg="rpmblue"
                                         >
-                                            Join Waitlist with Email
+                                            Join with Email
                                         </MotionButton>
                                     </VStack>
                                     
