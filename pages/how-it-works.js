@@ -41,9 +41,9 @@ export default function HowItWorks() {
                 </Text>
               </Box>
               <Box flex={1}>
-                <Heading size="md" mb={4}>Natural Language CLI</Heading>
+                <Heading size="md" mb={4}>Intuitive CLI</Heading>
                 <Text>
-                  Execute ML jobs using our intuitive CLI that understands natural language commands, making training simpler than ever.
+                  Execute ML jobs using our intuitive CLI that autogenerates toml files, making training simpler than ever.
                 </Text>
               </Box>
             </Flex>
