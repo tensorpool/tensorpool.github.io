@@ -1353,7 +1353,7 @@ const Login = () => {
 
     return (
         <Layout>
-            <Center p={6} minHeight="50vh">
+            <Center p={6} minHeight="100vh">
                 <MotionBox
                     initial={{ opacity: 0, y: 50 }}
                     animate={{ opacity: 1, y: 0 }}
