@@ -73,18 +73,26 @@ const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
             colorScheme="blue"
             bg="rpmblue"
             _hover={{ bg: "rpblue" }}
+            onClick={() => router.push('/balance')}
+          >
+            Balance
+          </Button>
+          <Button
+            colorScheme="blue"
+            bg="rpmblue"
+            _hover={{ bg: "rpblue" }}
             onClick={() => router.push('/api-key')}
           >
             API Key
           </Button>
-          {/* <Button
+          <Button
             colorScheme="blue"
             bg="rpmblue"
             _hover={{ bg: "rpblue" }}
             onClick={() => router.push('/cost-savings')}
           >
             Cost Savings
-          </Button> */}
+          </Button>
         </VStack>
         <Button 
           colorScheme="red" 
