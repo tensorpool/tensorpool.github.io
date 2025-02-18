@@ -67,7 +67,7 @@ export default function Home() {
             TensorPool
           </Heading>
           <Text as="h2" fontSize={["2xl", "3xl"]} my={[6, 3]}>
-            The easiest way to execute ML jobs on the cloud.
+            The easiest way to use GPUs
           </Text>
           <Text as="h3" fontSize={["lg", "xl"]} my={[6, 3]}>
             Our CLI makes ML model training effortless - just describe your job,
@@ -75,11 +75,11 @@ export default function Home() {
             major cloud providers.
           </Text>
           <Flex direction="column" align={["center", "flex-start"]}>
-            <Link href="/how-it-works" mb={4}>
+            {/* <Link href="/how-it-works" mb={4}>
               <Button size="lg" bg="rpmblue" padding={6} width="200px">
                 How It Works
               </Button>
-            </Link>
+            </Link> */}
             <Link href={user ? "/dashboard" : "/join"}>
               <Button size="lg" bg="rpmblue" padding={6} width="200px">
                 {user ? "Dashboard" : "Sign In"}

@@ -31,7 +31,7 @@ const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
 
   return (
     <>
-      {/* <IconButton
+      <IconButton
         icon={
           isCollapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />
         }
@@ -46,7 +46,7 @@ const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
         _hover={{ bg: "gray.700" }}
         zIndex={1000}
         transition="left 0.3s ease"
-      /> */}
+      />
 
       <Box
         position="fixed"
