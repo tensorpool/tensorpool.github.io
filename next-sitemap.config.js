@@ -1,7 +1,7 @@
 /** @type {import('next-sitemap').IConfig} */
 const config = {
-	siteUrl: 'https://ridepoolapp.com',
-	generateRobotsTxt: true,
+  siteUrl: "https://dashboard.tensorpool.dev",
+  generateRobotsTxt: true,
 };
 
 module.exports = config;
