@@ -18,6 +18,8 @@
     "@chakra-ui/react": "^2.7.0",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
+    "@fontsource-variable/jetbrains-mono": "^5.2.5",
+    "@fontsource-variable/open-sans": "^5.2.5",
     "@fontsource/open-sans": "^5.1.1",
     "@fontsource/poppins": "^5.1.1",
     "@fontsource/red-hat-display": "^5.0.3",

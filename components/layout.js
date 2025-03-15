@@ -5,14 +5,15 @@ import { GoogleAnalytics } from "nextjs-google-analytics";
 import Header from "./header.js";
 import Footer from "./footer.js";
 import "@fontsource/space-grotesk/600.css";
-import "@fontsource/red-hat-display/500.css";
-import "@fontsource/poppins/400.css";
+// import "@fontsource/red-hat-display/500.css";
+// import "@fontsource-variable/open-sans";
+import "@fontsource-variable/jetbrains-mono";
 
 const theme = extendTheme({
   fonts: {
-    //heading: '\'Space Grotesk\', sans-serif',
-    heading: "'Poppins', sans-serif",
-    body: "'Red Hat Display', sans-serif",
+    heading: "'Space Grotesk', sans-serif",
+    // heading: "'Open Sans', sans-serif", // TOD
+    body: "'JetBrains Mono', monospace",
   },
   colors: {
     rpblue: "#123456",
@@ -29,17 +30,15 @@ const theme = extendTheme({
   },
 });
 
-const title = "TensorPool — Execute ML jobs on the cloud with natural language";
-const description = "Save ML developer time and money with TensorPool";
+const title = "TensorPool";
+const description = "The easiest way to use cloud GPUs";
 const ogImage = "https://tensorpool.dev/images/preview.jpeg";
 
 const Layout = ({ children }) => (
   <ChakraProvider theme={theme}>
     <Head>
       {/* Primary Meta Tags */}
-      <title>
-        TensorPool — the easiest way to execute ML jobs on the cloud
-      </title>
+      <title>TensorPool — the easiest way to use cloud GPUs</title>
       <meta name="title" content={title} />
       <meta name="description" content={description} />
       <meta name="viewport" content="initial-scale=1.0, width=device-width" />

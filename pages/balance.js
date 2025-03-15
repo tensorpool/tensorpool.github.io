@@ -46,7 +46,7 @@ export default function Balance() {
       const { data, error } = await supabase
         .from("users")
         .select("curr_balance")
-        .eq("uid", userId)
+        // .eq("uid", userId)
         .single();
 
       if (error) throw error;

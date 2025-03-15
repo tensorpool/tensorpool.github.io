@@ -69,11 +69,11 @@ export default function Home() {
           <Text as="h2" fontSize={["2xl", "3xl"]} my={[6, 3]}>
             The easiest way to use GPUs
           </Text>
-          <Text as="h3" fontSize={["lg", "xl"]} my={[6, 3]}>
+          {/* <Text as="h3" fontSize={["lg", "xl"]} my={[6, 3]}>
             Our CLI makes ML model training effortless - just describe your job,
             and we handle GPU orchestration and execution at half the cost of
             major cloud providers.
-          </Text>
+          </Text> */}
           <Flex direction="column" align={["center", "flex-start"]}>
             {/* <Link href="/how-it-works" mb={4}>
               <Button size="lg" bg="rpmblue" padding={6} width="200px">
@@ -88,7 +88,7 @@ export default function Home() {
           </Flex>
         </MotionBox>
 
-        <MotionBox
+        {/* <MotionBox
           width={["100%", "30%"]}
           initial={{ opacity: 0, x: 50 }}
           animate={{ opacity: 1, x: 0 }}
@@ -100,7 +100,7 @@ export default function Home() {
               boxSize={["60%", "90%"]}
             />
           </Center>
-        </MotionBox>
+        </MotionBox> */}
       </Flex>
     </Layout>
   );

@@ -64,7 +64,6 @@ export default function Dashboard() {
         .select(
           "id, external_status, received, stdout_link, received, is_notified, created_at, on_demand_price, user_cost, status, cancel, created_at"
         )
-        .eq("user_id", userId)
         .not("external_status", "is", null)
         .order("created_at", { ascending: false });
 
