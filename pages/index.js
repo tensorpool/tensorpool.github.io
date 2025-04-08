@@ -124,7 +124,7 @@ const Login = () => {
 
       // Show a confirmation UI after successful magic link send
       toast({
-        title: "Magic Link Sent!",
+        title: "Login Link Sent!",
         description: `Please check ${email} for a login link.`,
         status: "success",
         duration: 6000,
@@ -140,7 +140,7 @@ const Login = () => {
     } catch (error) {
       console.error("Magic link error:", error);
       toast({
-        title: "Error sending magic link",
+        title: "Error sending login link",
         description: error.message,
         status: "error",
         duration: 6000,
@@ -427,7 +427,7 @@ const Login = () => {
                       transition={{ duration: 1, delay: 0.3 }}
                       bg="rpmblue"
                     >
-                      Send Magic Link
+                      Send Login Link
                     </MotionButton>
                   </VStack>
 
