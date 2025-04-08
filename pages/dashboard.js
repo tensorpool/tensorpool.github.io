@@ -34,7 +34,7 @@ export default function Dashboard() {
         data: { session },
       } = await supabase.auth.getSession();
       if (!session) {
-        router.push("/login");
+        router.push("/");
       } else {
         fetchJobs(session.user.id);
       }
@@ -48,7 +48,7 @@ export default function Dashboard() {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === "SIGNED_OUT") {
-        window.location.href = "/join";
+        window.location.href = "/";
       }
     });
 
@@ -62,7 +62,7 @@ export default function Dashboard() {
       const { data, error } = await supabase
         .from("Jobs")
         .select(
-          "id, external_status, received, stdout_link, received, is_notified, created_at, on_demand_price, user_cost, status, cancel, created_at"
+          "id, external_status, received, stdout_link, received, is_notified, created_at, status, cancel, created_at"
         )
         .not("external_status", "is", null)
         .order("created_at", { ascending: false });

@@ -118,11 +118,12 @@ export default function Balance() {
           {/* Render the Stripe Buy Button */}
           <div>
             <stripe-buy-button
-              buy-button-id="buy_btn_1QrBzYA1GmKl9mbTURO2NAVW"
-              publishable-key="pk_live_51QdFZKA1GmKl9mbTFaV5IkzCTShxBAOhlR6tV3l3OI4acW2K4vtnZBCm9XoOqlinGX0WbsdVk6FQlh3jhWFB3PiU00hVtUMpcW"
-              // buy-button-id="buy_btn_1QrBV9A1GmKl9mbT55SJslyQ"
-              // publishable-key="pk_test_51QdFZKA1GmKl9mbTWexUMUGwDyg2Xy8Uj3hYYWNuWGoWoFYk2xQWpKV2AUCy54lDzOtDVM2fm2gX5Gan0pEt299e00o6XNuizX"
+              // buy-button-id="buy_btn_1QrBzYA1GmKl9mbTURO2NAVW"
+              // publishable-key="pk_live_51QdFZKA1GmKl9mbTFaV5IkzCTShxBAOhlR6tV3l3OI4acW2K4vtnZBCm9XoOqlinGX0WbsdVk6FQlh3jhWFB3PiU00hVtUMpcW"
+              buy-button-id="buy_btn_1QrBV9A1GmKl9mbT55SJslyQ"
+              publishable-key="pk_test_51QdFZKA1GmKl9mbTWexUMUGwDyg2Xy8Uj3hYYWNuWGoWoFYk2xQWpKV2AUCy54lDzOtDVM2fm2gX5Gan0pEt299e00o6XNuizX"
               customer-email={userEmail}
+              onclick="window.open(this.getAttribute('checkout-url'), '_blank')"
             ></stripe-buy-button>
           </div>
         </VStack>
