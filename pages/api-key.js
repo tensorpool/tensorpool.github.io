@@ -30,11 +30,12 @@ export default function ApiKey() {
     checkSession();
   }, [router]);
 
+  // TODO: move this behind an endpoint
   const fetchApiKey = async (userId) => {
     try {
       const { data, error } = await supabase
         .from("users")
-        .select("api_key, active")
+        .select("api_key, banned")
         .eq("uid", userId)
         .single();
 
@@ -66,28 +67,20 @@ export default function ApiKey() {
 
   return (
     <Layout>
-      <SidePanel /> {/* Add SidePanel */}
+      <SidePanel />
       <Box ml="220px" minH="100vh" display="flex" flexDirection="column">
         <Heading as="h1" size="xl" mb={6}>
           API Key
         </Heading>
         {apiData ? (
           <Box>
-            {apiData.active ? (
-              <Text mb={4}> {apiData.api_key}</Text>
-            ) : (
+            {apiData.banned ? (
               <Text mb={4} color="white" fontSize="lg">
-                You are on the waitlist so your API Key has not been activated.
-                Check back later or{" "}
-                <Link
-                  href="mailto:team@tensorpool.dev"
-                  color="white"
-                  textDecoration="underline"
-                >
-                  reach out to support
-                </Link>{" "}
-                to expedite this process.
+                Error 9406. No API key found. Contact team@tensorpool.dev to get
+                your API key.
               </Text>
+            ) : (
+              <Text mb={4}> {apiData.api_key}</Text>
             )}
           </Box>
         ) : (
