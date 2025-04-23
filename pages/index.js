@@ -3,17 +3,19 @@ import {
   Button,
   Box,
   Center,
-  Input,
   Heading,
   Text,
   VStack,
   Divider,
   useToast,
+  Stack,
+  Icon,
 } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import Layout from "../components/layout.js";
 import { createClient } from "@supabase/supabase-js";
-import { useRouter } from "next/router"; // Add Router import
+import { useRouter } from "next/router";
+import { FaGoogle, FaGithub } from "react-icons/fa";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
@@ -31,134 +33,22 @@ const isEmbeddedBrowser = () => {
 };
 
 const Login = () => {
-  const router = useRouter(); // Initialize router
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+  const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
+  const [authProvider, setAuthProvider] = useState("");
   const toast = useToast();
-
-  // const handleEmailSubmit = async () => {
-  //   if (!email || !name) {
-  //     toast({
-  //       title: "Missing Information",
-  //       description: "Please provide both your name and email.",
-  //       status: "error",
-  //       duration: 4000,
-  //       isClosable: true,
-  //     });
-  //     return;
-  //   }
-
-  //   setLoading(true);
-  //   try {
-  //     const { error } = await supabase.auth.signInWithOtp({
-  //       email: email,
-  //       options: {
-  //         data: {
-  //           full_name: name,
-  //         },
-  //         emailRedirectTo: `${window.location.origin}/dashboard`, // Update redirect URL
-  //       },
-  //     });
-
-  //     if (error) {
-  //       console.error("Authentication error details:", error);
-  //       throw error;
-  //     }
-
-  //     toast({
-  //       title: "Verification link sent!",
-  //       description: `Please check ${email} for a verification link.`,
-  //       status: "success",
-  //       duration: 6000,
-  //       isClosable: true,
-  //     });
-
-  //     setEmail("");
-  //     setName("");
-  //   } catch (error) {
-  //     console.log(error);
-  //     toast({
-  //       title: "Error sending verification.",
-  //       description: error.message,
-  //       status: "error",
-  //       duration: 6000,
-  //       isClosable: true,
-  //     });
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-  //
-  const handleEmailSubmit = async () => {
-    // if (!email || !name) {
-    if (!email) {
-      toast({
-        title: "Missing Information",
-        description: "Please provide your email.",
-        status: "error",
-        duration: 4000,
-        isClosable: true,
-      });
-      return;
-    }
-
-    setLoading(true);
-    try {
-      // This is the magic link implementation
-      const { error } = await supabase.auth.signInWithOtp({
-        email: email,
-        options: {
-          // data: {
-          //   full_name: name,
-          // },
-          emailRedirectTo: `${window.location.origin}/dashboard`,
-        },
-      });
-
-      if (error) {
-        throw error;
-      }
-
-      // Show a confirmation UI after successful magic link send
-      toast({
-        title: "Login Link Sent!",
-        description: `Please check ${email} for a login link.`,
-        status: "success",
-        duration: 6000,
-        isClosable: true,
-      });
-
-      // Clear the form fields or transition to a "check your email" view
-      setEmail("");
-      setName("");
-
-      // Optionally, show a different component while waiting for user to click link
-      // setMagicLinkSent(true);
-    } catch (error) {
-      console.error("Magic link error:", error);
-      toast({
-        title: "Error sending login link",
-        description: error.message,
-        status: "error",
-        duration: 6000,
-        isClosable: true,
-      });
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const handleGoogleLogin = async () => {
     setLoading(true);
+    setAuthProvider("google");
     try {
       if (isEmbeddedBrowser()) {
         toast({
           title: "Unsupported Browser",
           description:
-            "Google login is not supported in LinkedIns browser. Please open this page in Chrome, Safari, or another browser.",
+            "Google login is not supported in LinkedIn's browser. Please open this page in Chrome, Safari, or another browser.",
           status: "error",
           duration: 6000,
           isClosable: true,
@@ -170,7 +60,7 @@ const Login = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/dashboard`, // Update redirect URL
+          redirectTo: `${window.location.origin}/dashboard`,
         },
       });
 
@@ -185,6 +75,46 @@ const Login = () => {
       });
     } finally {
       setLoading(false);
+      setAuthProvider("");
+    }
+  };
+
+  const handleGithubLogin = async () => {
+    setLoading(true);
+    setAuthProvider("github");
+    try {
+      if (isEmbeddedBrowser()) {
+        toast({
+          title: "Unsupported Browser",
+          description:
+            "GitHub login is not supported in LinkedIn's browser. Please open this page in Chrome, Safari, or another browser.",
+          status: "error",
+          duration: 6000,
+          isClosable: true,
+        });
+        setLoading(false);
+        return;
+      }
+
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "github",
+        options: {
+          redirectTo: `${window.location.origin}/dashboard`,
+        },
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      toast({
+        title: "Error with GitHub login",
+        description: error.message,
+        status: "error",
+        duration: 6000,
+        isClosable: true,
+      });
+    } finally {
+      setLoading(false);
+      setAuthProvider("");
     }
   };
 
@@ -194,7 +124,7 @@ const Login = () => {
       if (error) throw error;
 
       setLoggedIn(false);
-      router.push("/"); // Redirect to home login page after logout
+      router.push("/");
 
       toast({
         title: "Logged out successfully!",
@@ -215,13 +145,24 @@ const Login = () => {
 
   useEffect(() => {
     const checkSession = async () => {
+      // Check if we've just logged out
+      const justLoggedOut =
+        new URLSearchParams(window.location.search).get("logout") === "true";
+
+      if (justLoggedOut) {
+        // Skip session check if we just logged out
+        setLoggedIn(false);
+        setCheckingSession(false);
+        return;
+      }
+
       try {
         const {
           data: { session },
         } = await supabase.auth.getSession();
         if (session?.user) {
           setLoggedIn(true);
-          router.push("/dashboard"); // Redirect to dashboard if already logged in
+          router.push("/dashboard");
         } else {
           setLoggedIn(false);
         }
@@ -238,10 +179,10 @@ const Login = () => {
       async (event, session) => {
         if (event === "SIGNED_IN") {
           setLoggedIn(true);
-          router.push("/dashboard"); // Redirect on sign in
+          router.push("/dashboard");
         } else if (event === "SIGNED_OUT") {
           setLoggedIn(false);
-          router.push("/"); // Redirect to home page on sign out
+          router.push("/");
         }
       }
     );
@@ -256,7 +197,7 @@ const Login = () => {
       toast({
         title: "Unsupported Browser Detected",
         description:
-          "It seems you are using LinkedIns in-app browser. For the best experience, please open this page in your default browser (e.g., Chrome or Safari).",
+          "It seems you are using LinkedIn's in-app browser. For the best experience, please open this page in your default browser (e.g., Chrome or Safari).",
         status: "warning",
         duration: 6000,
         isClosable: true,
@@ -311,7 +252,7 @@ const Login = () => {
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 1 }}
                   >
-                    Welcome to TensorPool
+                    TensorPool
                   </MotionHeading>
                 </>
               )}
@@ -345,50 +286,47 @@ const Login = () => {
                 animate={{ opacity: 1 }}
                 transition={{ duration: 1 }}
               >
-                {/* <VStack spacing={6} align="center">
-                  <VStack spacing={4} align="center" width="300px">
-                    <Input
-                      placeholder="Enter your full name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      size="md"
-                    />
-                    <Input
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      size="md"
-                    />
+                <VStack spacing={6} align="center">
+                  <Text fontSize="md" textAlign="center" mb={2}>
+                    Sign in to access the TensorPool dashboard
+                  </Text>
+
+                  <Stack spacing={4} width="300px">
                     <MotionButton
                       width="full"
-                      onClick={handleEmailSubmit}
-                      isLoading={loading}
+                      leftIcon={<Icon as={FaGoogle} />}
+                      onClick={handleGoogleLogin}
+                      isLoading={loading && authProvider === "google"}
+                      loadingText="Connecting..."
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 1, delay: 0.2 }}
+                      bg="rpmblue"
+                      _hover={{ bg: "blue.500" }}
+                    >
+                      Continue with Google
+                    </MotionButton>
+
+                    {/* <MotionButton
+                      width="full"
+                      leftIcon={<Icon as={FaGithub} />}
+                      onClick={handleGithubLogin}
+                      isLoading={loading && authProvider === "github"}
+                      loadingText="Connecting..."
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       transition={{ duration: 1, delay: 0.3 }}
-                      bg="rpmblue"
+                      bg="gray.800"
+                      color="white"
+                      _hover={{ bg: "gray.700" }}
                     >
-                      Continue with Email
-                    </MotionButton>
-                  </VStack>
-
-                  <Divider />
-
-                  <MotionButton
-                    bg="rpmblue"
-                    width="300px"
-                    onClick={handleGoogleLogin}
-                    isLoading={loading}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 1, delay: 0.3 }}
-                  >
-                    Continue with Google
-                  </MotionButton>
+                      Continue with GitHub
+                    </MotionButton> */}
+                  </Stack>
 
                   {isEmbeddedBrowser() && (
                     <VStack mt={4} spacing={2}>
-                      <Text>
+                      <Text textAlign="center" fontSize="sm">
                         Having trouble logging in? Copy the link and open it in
                         a browser:
                       </Text>
@@ -397,41 +335,12 @@ const Login = () => {
                         onClick={() =>
                           navigator.clipboard.writeText(window.location.href)
                         }
-                        colorScheme="blue"
+                        size="sm"
                       >
                         Copy Link
                       </Button>
                     </VStack>
                   )}
-                </VStack> */}
-                <VStack spacing={6} align="center">
-                  <VStack spacing={4} align="center" width="300px">
-                    {/* <Input
-                      placeholder="Enter your full name"
-                      value={name}
-                      onChange={(e) => setName(e.target.value)}
-                      size="md"
-                    /> */}
-                    <Input
-                      placeholder="Enter your email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      size="md"
-                    />
-                    <MotionButton
-                      width="full"
-                      onClick={handleEmailSubmit}
-                      isLoading={loading}
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      transition={{ duration: 1, delay: 0.3 }}
-                      bg="rpmblue"
-                    >
-                      Send Login Link
-                    </MotionButton>
-                  </VStack>
-
-                  {/* Remove divider and Google login if focusing only on magic links */}
                 </VStack>
               </MotionBox>
             )}

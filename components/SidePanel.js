@@ -22,9 +22,12 @@ const SidePanel = ({ isCollapsed, setIsCollapsed }) => {
       if (error) throw error;
 
       await new Promise((resolve) => setTimeout(resolve, 500));
-      window.location.href = "/";
+      window.location.href = "/?logout=true";
     } catch (error) {
       console.error("Error logging out:", error);
+      // Still redirect on error
+      window.location.href = "/?logout=true";
+    } finally {
       setLoggingOut(false);
     }
   };
