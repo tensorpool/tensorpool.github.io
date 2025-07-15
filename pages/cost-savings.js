@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { createClient } from '@supabase/supabase-js';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { createClient } from "@supabase/supabase-js";
 import {
   Box,
   Heading,
@@ -11,11 +11,11 @@ import {
   StatLabel,
   StatNumber,
   StatHelpText,
-} from '@chakra-ui/react';
-import Layout from '../components/layout.js';
-import SidePanel from '../components/SidePanel';
+} from "@chakra-ui/react";
+import Layout from "../components/layout.js";
+import SidePanel from "../components/SidePanel";
 
-const supabaseUrl = 'https://jxzbchdihjvupnnusedd.supabase.co';
+const supabaseUrl = "https://api.tensorpool.dev";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
@@ -27,9 +27,11 @@ export default function CostSavings() {
 
   useEffect(() => {
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
       if (!session) {
-        router.push('/login');
+        router.push("/login");
       } else {
         fetchSavings(session.user.id);
       }
@@ -41,9 +43,9 @@ export default function CostSavings() {
   const fetchSavings = async (userId) => {
     try {
       const { data, error } = await supabase
-        .from('Jobs')
-        .select('on_demand_price, user_cost')
-        .eq('user_id', userId);
+        .from("Jobs")
+        .select("on_demand_price, user_cost")
+        .eq("user_id", userId);
 
       if (error) throw error;
 
@@ -57,7 +59,7 @@ export default function CostSavings() {
 
       setTotalSavings(savings);
     } catch (error) {
-      console.error('Error fetching savings:', error);
+      console.error("Error fetching savings:", error);
     } finally {
       setLoading(false);
     }
@@ -66,9 +68,9 @@ export default function CostSavings() {
   if (loading) {
     return (
       <Layout>
-        <Box 
+        <Box
           ml={isCollapsed ? "0" : "220px"}
-          minH="100vh" 
+          minH="100vh"
           display="flex"
           flexDirection="column"
           transition="margin-left 0.3s ease"
@@ -83,7 +85,7 @@ export default function CostSavings() {
   return (
     <Layout>
       <SidePanel isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
-      <Box 
+      <Box
         ml={isCollapsed ? "0" : "220px"}
         height="100vh"
         display="flex"
@@ -92,23 +94,25 @@ export default function CostSavings() {
         pl={10}
         pt={10}
       >
-        <Heading as="h1" size="xl" mb={6}>Cost Savings</Heading>
-        
-        <Box 
-          p={8} 
-          borderWidth="1px" 
-          borderRadius="lg" 
+        <Heading as="h1" size="xl" mb={6}>
+          Cost Savings
+        </Heading>
+
+        <Box
+          p={8}
+          borderWidth="1px"
+          borderRadius="lg"
           maxW="500px"
           bg="gray.800"
         >
           <Stat>
-            <StatLabel fontSize="xl" mb={2}>Total Cost Savings</StatLabel>
+            <StatLabel fontSize="xl" mb={2}>
+              Total Cost Savings
+            </StatLabel>
             <StatNumber fontSize="4xl" color="green.400">
               ${totalSavings.toFixed(2)}
             </StatNumber>
-            <StatHelpText>
-              Compared to typical on-demand pricing
-            </StatHelpText>
+            <StatHelpText>Compared to typical on-demand pricing</StatHelpText>
           </Stat>
         </Box>
       </Box>

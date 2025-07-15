@@ -5,7 +5,7 @@ import { Box, Heading, Text, useToast, Link } from "@chakra-ui/react";
 import Layout from "../components/layout";
 import SidePanel from "../components/SidePanel"; // Import SidePanel
 
-const supabaseUrl = "https://jxzbchdihjvupnnusedd.supabase.co";
+const supabaseUrl = "https://api.tensorpool.dev";
 const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
