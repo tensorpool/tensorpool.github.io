@@ -45,12 +45,12 @@ export default function Balance() {
     try {
       const { data, error } = await supabase
         .from("users")
-        .select("curr_balance")
-        // .eq("uid", userId)
+        .select("balance")
+        .eq("uid", userId)
         .single();
 
       if (error) throw error;
-      setBalance(data.curr_balance || 0);
+      setBalance(data.balance);
     } catch (error) {
       console.error("Error fetching balance:", error);
     } finally {
