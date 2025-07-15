@@ -105,7 +105,7 @@ export default function Balance() {
 
       let query = supabase
         .from("Ledger")
-        .select("id, created_at, amount, description, finalized, uid, users(email)")
+        .select("id, created_at, amount, description, finalized, uid")
         .order("created_at", { ascending: false });
 
       if (userData.org_id) {
@@ -213,12 +213,9 @@ export default function Balance() {
                   <Thead>
                     <Tr>
                       <Th color="gray.300">Date & Time</Th>
-                      <Th color="gray.300">User</Th>
                       <Th color="gray.300">Description</Th>
-                      <Th color="gray.300" isNumeric>
-                        Amount ($)
-                      </Th>
                       <Th color="gray.300">Status</Th>
+                      <Th color="gray.300">User ID</Th>
                     </Tr>
                   </Thead>
                   <Tbody>
@@ -227,9 +224,6 @@ export default function Balance() {
                         <Td color="white" fontSize="sm">
                           {new Date(transaction.created_at).toLocaleString()}
                         </Td>
-                        <Td color="white" fontSize="sm">
-                          {transaction.users?.email || "N/A"}
-                        </Td>
                         <Td
                           color="white"
                           fontSize="sm"
@@ -237,16 +231,6 @@ export default function Balance() {
                           wordBreak="break-word"
                         >
                           {transaction.description || "N/A"}
-                        </Td>
-                        <Td
-                          color={
-                            transaction.amount >= 0 ? "green.400" : "red.400"
-                          }
-                          isNumeric
-                          fontSize="sm"
-                          fontWeight="semibold"
-                        >
-                          {transaction.amount}
                         </Td>
                         <Td>
                           <Badge
@@ -258,6 +242,9 @@ export default function Balance() {
                           >
                             {transaction.finalized ? "Completed" : "Pending"}
                           </Badge>
+                        </Td>
+                        <Td color="white" fontSize="sm">
+                          {transaction.uid}
                         </Td>
                       </Tr>
                     ))}
