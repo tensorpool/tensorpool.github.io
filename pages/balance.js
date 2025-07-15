@@ -10,6 +10,15 @@ import {
   StatNumber,
   Button,
   VStack,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  TableContainer,
+  Badge,
+  Spinner,
 } from "@chakra-ui/react";
 import Layout from "../components/layout.js";
 import SidePanel from "../components/SidePanel";
@@ -25,6 +34,8 @@ export default function Balance() {
   const [userEmail, setUserEmail] = useState("");
   const [orgData, setOrgData] = useState(null);
   const [isInOrg, setIsInOrg] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [transactionsLoading, setTransactionsLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -37,6 +48,7 @@ export default function Balance() {
       } else {
         fetchUserAndOrgData(session.user.id);
         setUserEmail(session.user.email);
+        fetchTransactions(session.user.id);
       }
     };
 
@@ -79,6 +91,41 @@ export default function Balance() {
     }
   };
 
+  const fetchTransactions = async (userId) => {
+    try {
+      setTransactionsLoading(true);
+
+      const { data: userData, error: userError } = await supabase
+        .from("users")
+        .select("org_id")
+        .eq("uid", userId)
+        .single();
+
+      if (userError) throw userError;
+
+      let query = supabase
+        .from("Ledger")
+        .select("id, created_at, amount, description, finalized, uid, users(email)")
+        .order("created_at", { ascending: false });
+
+      if (userData.org_id) {
+        query = query.eq("org_id", userData.org_id);
+      } else {
+        query = query.eq("uid", userId);
+      }
+
+      const { data: transactionsData, error: transactionsError } = await query;
+
+      if (transactionsError) throw transactionsError;
+
+      setTransactions(transactionsData || []);
+    } catch (error) {
+      console.error("Error fetching transactions:", error);
+    } finally {
+      setTransactionsLoading(false);
+    }
+  };
+
   // Load the Stripe script dynamically
   useEffect(() => {
     const script = document.createElement("script");
@@ -113,10 +160,8 @@ export default function Balance() {
       <SidePanel isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
       <Box
         ml={isCollapsed ? "0" : "220px"}
-        height="100vh"
         display="flex"
         flexDirection="column"
-        transition="margin-left 0.3s ease"
         pl={10}
         pt={10}
       >
@@ -124,7 +169,7 @@ export default function Balance() {
           {isInOrg ? `${orgData?.name} - Balance` : "Balance"}
         </Heading>
 
-        <VStack spacing={8} align="stretch" maxW="500px">
+        <VStack spacing={8} align="stretch" w="90%">
           <Box p={8} borderWidth="1px" borderRadius="lg" bg="gray.800">
             <Stat>
               <StatLabel fontSize="xl" mb={2}>
@@ -136,7 +181,7 @@ export default function Balance() {
             </Stat>
           </Box>
 
-          {/* Render the Stripe Buy Button */}
+          {/* Stripe Buy Button */}
           <div>
             <stripe-buy-button
               buy-button-id="buy_btn_1QrBzYA1GmKl9mbTURO2NAVW"
@@ -147,6 +192,80 @@ export default function Balance() {
               onclick="window.open(this.getAttribute('checkout-url'), '_blank')"
             ></stripe-buy-button>
           </div>
+
+          {/* Transactions Table */}
+          <Box p={6} borderWidth="1px" borderRadius="lg" bg="gray.800" w="100%">
+            <Heading as="h2" size="lg" mb={4} color="white">
+              {isInOrg ? "Organization Transactions" : "Transaction History"}
+            </Heading>
+
+            {transactionsLoading ? (
+              <Box display="flex" justifyContent="center" p={4}>
+                <Spinner size="lg" color="blue.500" />
+              </Box>
+            ) : transactions.length === 0 ? (
+              <Text color="gray.400" textAlign="center" p={4}>
+                No transactions found
+              </Text>
+            ) : (
+              <TableContainer w="100%" overflowX="auto">
+                <Table variant="simple" colorScheme="gray" size="md">
+                  <Thead>
+                    <Tr>
+                      <Th color="gray.300">Date & Time</Th>
+                      <Th color="gray.300">User</Th>
+                      <Th color="gray.300">Description</Th>
+                      <Th color="gray.300" isNumeric>
+                        Amount ($)
+                      </Th>
+                      <Th color="gray.300">Status</Th>
+                    </Tr>
+                  </Thead>
+                  <Tbody>
+                    {transactions.map((transaction) => (
+                      <Tr key={transaction.id}>
+                        <Td color="white" fontSize="sm">
+                          {new Date(transaction.created_at).toLocaleString()}
+                        </Td>
+                        <Td color="white" fontSize="sm">
+                          {transaction.users?.email || "N/A"}
+                        </Td>
+                        <Td
+                          color="white"
+                          fontSize="sm"
+                          maxW="400px"
+                          wordBreak="break-word"
+                        >
+                          {transaction.description || "N/A"}
+                        </Td>
+                        <Td
+                          color={
+                            transaction.amount >= 0 ? "green.400" : "red.400"
+                          }
+                          isNumeric
+                          fontSize="sm"
+                          fontWeight="semibold"
+                        >
+                          {transaction.amount}
+                        </Td>
+                        <Td>
+                          <Badge
+                            colorScheme={
+                              transaction.finalized ? "green" : "yellow"
+                            }
+                            variant="solid"
+                            size="sm"
+                          >
+                            {transaction.finalized ? "Completed" : "Pending"}
+                          </Badge>
+                        </Td>
+                      </Tr>
+                    ))}
+                  </Tbody>
+                </Table>
+              </TableContainer>
+            )}
+          </Box>
         </VStack>
       </Box>
     </Layout>
