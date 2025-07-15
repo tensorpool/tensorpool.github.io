@@ -23,6 +23,8 @@ export default function Balance() {
   const [loading, setLoading] = useState(true);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [userEmail, setUserEmail] = useState("");
+  const [orgData, setOrgData] = useState(null);
+  const [isInOrg, setIsInOrg] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
@@ -33,7 +35,7 @@ export default function Balance() {
       if (!session) {
         router.push("/login");
       } else {
-        fetchBalance(session.user.id);
+        fetchUserAndOrgData(session.user.id);
         setUserEmail(session.user.email);
       }
     };
@@ -41,18 +43,37 @@ export default function Balance() {
     checkSession();
   }, [router]);
 
-  const fetchBalance = async (userId) => {
+  const fetchUserAndOrgData = async (userId) => {
     try {
-      const { data, error } = await supabase
+      const { data: userData, error: userError } = await supabase
         .from("users")
-        .select("balance")
+        .select("balance, org_id")
         .eq("uid", userId)
         .single();
 
-      if (error) throw error;
-      setBalance(data.balance);
+      if (userError) throw userError;
+
+      if (userData.org_id) {
+        setIsInOrg(true);
+        const { data: orgData, error: orgError } = await supabase
+          .from("Organizations")
+          .select("org_name, balance")
+          .eq("org_id", userData.org_id)
+          .single();
+
+        if (orgError) throw orgError;
+
+        setOrgData({
+          name: orgData.org_name,
+          balance: orgData.balance,
+        });
+        setBalance(orgData.balance);
+      } else {
+        setIsInOrg(false);
+        setBalance(userData.balance);
+      }
     } catch (error) {
-      console.error("Error fetching balance:", error);
+      console.error("Error fetching user and organization data:", error);
     } finally {
       setLoading(false);
     }
@@ -100,17 +121,17 @@ export default function Balance() {
         pt={10}
       >
         <Heading as="h1" size="xl" mb={6}>
-          Balance
+          {isInOrg ? `${orgData?.name} - Balance` : "Balance"}
         </Heading>
 
         <VStack spacing={8} align="stretch" maxW="500px">
           <Box p={8} borderWidth="1px" borderRadius="lg" bg="gray.800">
             <Stat>
               <StatLabel fontSize="xl" mb={2}>
-                Current Balance
+                {isInOrg ? "Organization Balance" : "Current Balance"}
               </StatLabel>
               <StatNumber fontSize="4xl" color="green.400">
-                ${balance?.toFixed(2)}
+                {balance}
               </StatNumber>
             </Stat>
           </Box>
