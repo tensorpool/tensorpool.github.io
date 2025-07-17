@@ -214,6 +214,7 @@ export default function Balance() {
                     <Tr>
                       <Th color="gray.300">Date & Time</Th>
                       <Th color="gray.300">Description</Th>
+                      <Th color="gray.300">Amount</Th>
                       <Th color="gray.300">Status</Th>
                       <Th color="gray.300">User ID</Th>
                     </Tr>
@@ -231,6 +232,9 @@ export default function Balance() {
                           wordBreak="break-word"
                         >
                           {transaction.description || "N/A"}
+                        </Td>
+                        <Td color="white" fontSize="sm">
+                          {transaction.amount}
                         </Td>
                         <Td>
                           <Badge
